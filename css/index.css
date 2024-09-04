@@ -1,0 +1,256 @@
+body {
+    background-color: #fff; /* Dark background */
+}
+.dark-theme {
+    background: #000106;
+   
+    color: #fff;
+}
+/* Default light theme */
+.navbar {
+    background-color: #fff;
+    color: #000106;
+}
+.navbar .nav-link:hover{
+    color:#B88A44;
+}
+.navbar .dropdown-item:hover{
+    background-color: #fff;
+    color:#B88A44;
+}
+.navbar .nav-link,
+.navbar .navbar-brand span,
+.navbar .nav-icon{
+    color: #000106;
+    font-size: 18px;
+    font-weight:50px ;
+}
+.dark-theme .navbar-toggler .dropdown-item{
+    border-color: #fff;
+}
+/* Dark theme */
+.dark-theme .navbar {
+    background-color: #000106;
+    color: #fff;
+}
+
+.dark-theme .navbar .nav-link,
+.dark-theme .navbar .navbar-brand span,
+.dark-theme .navbar .nav-icon {
+    color: #fff; 
+    font-size: 18px;
+    font-weight:50px ;
+}
+.dark-theme .navbar .nav-link:hover{
+    color:#B88A44;
+}
+/* Optional: Change color of dropdown items in dark theme */
+.dark-theme .navbar .dropdown-menu {
+    background-color: #000106;
+    border-color: #fff;
+}
+
+.dark-theme .navbar .dropdown-item {
+    color: #fff;
+}
+
+.dark-theme .navbar .dropdown-item:hover {
+    background-color: #333;
+    color: #B88A44;
+}
+
+.button-switch {
+    display: inline-flex;
+    width: 60px;
+    height: 28px;
+    border-radius: 20px;
+    border-color: #141313;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    border: none;
+    font-family: Arial, sans-serif;
+}
+
+.button-switch .switch-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 55%;
+    height: 100%;
+    transition: transform 0.4s;
+    pointer-events: none;
+}
+
+.button-switch .text-en {
+    background-color: #1E5B53;
+    left: 0;
+    border-radius: 45%;
+    font-size: 12px;
+}
+
+.button-switch .text-my {
+    font-size: 12px;
+    background-color: #B88A44;
+    right: 0;
+    transform: translateX(100%);
+    border-radius: 45%;
+}
+
+.button-switch.active .text-en {
+    transform: translateX(-100%);
+}
+
+.button-switch.active .text-my {
+    transform: translateX(0);
+}
+.btn-custom:hover{
+    background-color: #2b7067;
+    color:#B88A44;
+}
+.dark-theme .btn-custom:hover {
+    color: #f8f9fa; 
+}
+.food-image{
+    animation: imgRotate 50s linear infinite;
+}
+@keyframes imgRotate {
+    100%{
+        transform: rotate(360deg);
+    }
+}
+.recipe-text{
+    color:#000106;
+}
+.dark-theme .recipe-text{
+    color:#f8f9fa;
+}
+.border-des{
+    border: 3px solid #3ea497;
+    border-radius: 15px;
+}
+.dark-theme .border-des{
+    border: 3px solid #2b7067;
+    border-radius: 15px;
+}
+.bookmark{
+    color: #2b7067;
+    max-width: 20%;
+}
+.btn-success {
+    background-color: #00cc66; /* Green button */
+    border: none;
+}
+.btn-success:hover {
+    background-color: #009955; /* Darker green on hover */
+}
+.language-icon, .theme-icon {
+    color: #ffffff; /* White icons */
+}
+.text-just{
+    text-align: justify;
+}
+
+ /* Define the zoom-in animation using keyframes */
+@keyframes zoomInEffect {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    30% {
+        transform: scale(1);
+        opacity: 1; /* Zoomed in and fully visible */
+    }
+    80% {
+        transform: scale(1);
+        opacity: 1; /* Hold visibility for a while */
+    }
+    100% {
+        transform: scale(0.8);
+        opacity: 0; /* Slow disappearance over 40% of the animation time */
+    }
+}
+/* Apply the animation to images with the .zoomIn class */
+.zoomIn {
+    animation: zoomInEffect 9s ease-in-out infinite; /* Added infinite to repeat the animation */
+}
+
+/* Optional: Adding hover effect for further interaction */
+.zoomIn:hover {
+    transform: scale(1.05);
+}
+.linkicon{
+    color: #f4d19d;
+}
+.full-color {
+    color: #B88A44; /* Your desired color */
+}
+.bookmark {
+    max-width: 20%; /* Adjust as needed */
+}
+.dark-theme .form-container textarea {
+    background-color: #000106;
+    color: #fff; 
+}
+.dark-theme textarea::placeholder {
+    color: #f8f9fa; 
+}
+.slide:hover{
+    color:#B88A44;
+    background:#1E5B53;
+}
+.slider{
+    width: 90%;
+    height: 150px;
+    position: relative;
+    place-items: center;
+    overflow: hidden;
+}
+.slide-track{
+    display: flex;
+    width: calc(250px *12);
+}
+.slide-track:hover{
+    animation-play-state: paused;
+}
+.scroll-left {
+    animation: scroll-left 15s linear infinite;
+}
+
+.scroll-right {
+    animation: scroll-right 15s linear infinite;
+}
+@keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-250px * 6)) ;}
+}
+@keyframes scroll-right {
+    100% { transform: translateX(0); }
+    0% { transform: translateX(calc(-250px * 6)) ;}
+}
+.slide{
+    margin-right: 30px;
+   
+}
+.slider::before,
+.slider::after{
+    /* background: linear-gradient(to right,rgb(181, 249, 164)0%,
+    rgba(125, 115, 115, 0)100%); */
+    content: '';
+    height: 67%;
+    position: absolute;
+    width: 15%;
+    z-index: 2;
+}
+.slider::before{
+    left:0;
+    top:0;
+}
+.slider::after{
+    right:0;
+    top:0;
+    transform: rotateZ(180deg);
+}

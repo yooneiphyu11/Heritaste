@@ -1,0 +1,175 @@
+.font-georgia {
+    font-family: 'Georgia', serif;
+}
+
+.btn-custom:hover {
+    background-color: #66b2ff;
+}
+
+.form-container {
+    display: none;
+}
+
+.form-container.active {
+    display: block;
+}
+
+.toggle-icon {
+    cursor: pointer;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+body {
+    background: #f8f9fa; 
+    color: #000; 
+}
+
+.dark-theme {
+    background: #000106;
+    color: #fff;
+}
+
+.card {
+    width: 100%;
+    max-width: 500px; 
+    background: #fff; 
+    color: #000;
+}
+.navbar {
+    background-color: #fff;
+    color: #000106;
+    
+}
+.navbar .nav-link:hover{
+    color:#B88A44;
+}
+.navbar .dropdown-item:hover{
+    background-color: #fff;
+    color:#B88A44;
+}
+.navbar .nav-link,
+.navbar .navbar-brand span,
+.navbar .nav-icon{
+    color: #000106;
+    font-size: 18px;
+    font-weight:50px ;
+}
+.dark-theme .navbar-toggler .dropdown-item{
+    border-color: #fff;
+}
+/* Dark theme */
+.dark-theme .navbar {
+    background-color: #000106;
+    color: #fff;
+}
+
+.dark-theme .navbar .nav-link,
+.dark-theme .navbar .navbar-brand span,
+.dark-theme .navbar .nav-icon {
+    color: #fff; 
+    font-size: 18px;
+    font-weight:50px ;
+}
+.dark-theme .navbar .nav-link:hover{
+    color:#B88A44;
+}
+/* Optional: Change color of dropdown items in dark theme */
+.dark-theme .navbar .dropdown-menu {
+    background-color: #000106;
+    border-color: #fff;
+}
+
+.dark-theme .navbar .dropdown-item {
+    color: #fff;
+}
+
+.dark-theme .navbar .dropdown-item:hover {
+    background-color: #333;
+    color: #B88A44;
+}
+
+.button-switch {
+    display: inline-flex;
+    width: 60px;
+    height: 28px;
+    border-radius: 20px;
+    border-color: #141313;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    border: none;
+    font-family: Arial, sans-serif;
+}
+
+.button-switch .switch-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 55%;
+    height: 100%;
+    transition: transform 0.4s;
+    pointer-events: none;
+}
+
+.button-switch .text-en {
+    background-color: #1E5B53;
+    left: 0;
+    border-radius: 45%;
+    font-size: 12px;
+}
+
+.button-switch .text-my {
+    font-size: 12px;
+    background-color: #B88A44;
+    right: 0;
+    transform: translateX(100%);
+    border-radius: 45%;
+}
+
+.button-switch.active .text-en {
+    transform: translateX(-100%);
+}
+
+.button-switch.active .text-my {
+    transform: translateX(0);
+}
+.btn-custom:hover{
+    background-color: #2b7067;
+    color:#B88A44;
+}
+.dark-theme .btn-custom:hover {
+    color: #f8f9fa; 
+}
+.dark-theme .card {
+    background: #000106;
+    border-color: #f8f9fa; 
+    color: #fff;  
+}
+
+.dark-theme .btn-custom {
+    background-color: #000;
+    color: #f8f9fa; 
+}
+
+.dark-theme .form-check-label {
+    color: #f8f9fa; 
+}
+
+.tt {
+    color: rgb(142, 140, 140);
+}
+
+.dark-theme .form-container input {
+    background-color: #000106;
+    border-color: #f8f9fa;
+    color: #fff; 
+}
+.dark-theme input::placeholder {
+    color: #f8f9fa; 
+}
