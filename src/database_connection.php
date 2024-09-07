@@ -162,17 +162,18 @@ public function delete_mealByEN_id($id){
    }
 }
 
-// public function delete_mealByMY_id($id){
-//     $DBC=new DBC();
-//     $pdo=$DBC->Connect();
-//     $delete_meal=$pdo->prepare("DELETE FROM meal WHERE MY_id = '$id';");
-//    if( $delete_meal->execute()){
-//     echo "Delete meal successfully.";
-//    }
-//    else{
-//     echo "Delete meal failed.";
-//    }
-// }
+public function count_meal(){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $count_meal=$pdo->prepare("SELECT COUNT(*) AS meal_count FROM meal;");
+    $count_meal->execute();
+
+    $count=$count_meal->fetch(PDO::FETCH_ASSOC);
+    return $count['meal_count'];
+}
+
+
 //-----------------------------------------------dessert table------------------------------------------------
 public function read_dessert(){
     $DBC=new DBC();
@@ -224,6 +225,16 @@ public function update_dessert($name,$did){
         echo "Update dessert failed.";
     }
 }
+
+    public function count_dessert(){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $count_dessert=$pdo->prepare("SELECT COUNT(*) AS count FROM dessert;");
+        $result = $count_dessert->fetch(PDO::FETCH_ASSOC);  
+    
+    return $result['count'];
+    }
 
 public function delete_dessertbyEN_id($id){
     $DBC=new DBC();
@@ -606,6 +617,17 @@ try{
         }
     }
 
+    public function user_count(){
+
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $count_user=$pdo->prepare("SELECT COUNT(*) AS user_count FROM user;");
+        $count_user->execute();
+       $count=$count_user->fetch(PDO::FETCH_ASSOC);
+       return $count['user_count'];
+    }
+
 //------------------------------------------------------------review table-------------------------------------------
 
 
@@ -652,6 +674,16 @@ try{
         $delete_review->execute();
     }
 
+    public function review_count(){
+
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+        
+        $count_review=$pdo->prepare("SELECT COUNT(*) AS review_count FROM review;");
+        $count_review->execute();
+        $count=$count_review->fetch(PDO::FETCH_ASSOC);
+        return $count['review_count'];
+    }
 //--------------------------------------------------favourite table-------------------------------------
     public function insert_favourite($uid,$did,$mid){
         $DBC=new DBC();
@@ -680,6 +712,16 @@ try{
         $delete_favourite->execute();
     }
 
+    public function favourite_count(){
+
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+        
+        $count_favourite=$pdo->prepare("SELECT COUNT(*) AS favourite_count FROM favourite;");
+        $count_favourite->execute();
+        $count=$count_favourite->fetch(PDO::FETCH_ASSOC);
+        return $count['favourite_count'];
+    }
 
 
 
