@@ -7,7 +7,7 @@
     <!-- bootstrap css link -->
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <!-- css link -->
-     <link rel="stylesheet" href="../css/faq.css">
+     <link rel="stylesheet" href="faq.css">
     <!-- fontawesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -26,15 +26,20 @@
             </div>
 
             <div class="d-flex align-item-center me-5 order-lg-2">
-                <a class="nav-link mx-5" href="#">
-                    <button class="button-switch" id="languageButton" aria-label="Switch language" title="Switch language between English and Myanmar">
-                        <span class="switch-text text-en">EN</span>
-                        <span class="switch-text text-my">MY</span>
-                    </button>
-                </a>
+            <form id="languageForm " class="me-5 mt-1" style="border-radius: 20px;">
+                <div class="button-switch-container">
+                    <select id="languageSelect" class="language" aria-label="Select language" title="Select language"
+                    style="border: 2px solid #2b7067; border-radius: 15px; padding: 5px 10px; font-size: 16px; margin-right: 10px;">
+                    <option value="en">EN</option>
+                    <option value="my">MY</option>
+                    </select>
+                    <button type="submit" id="submitBtn" style="display: none;"></button>
+                </div>
+            </form>
                 <a class="nav-link me-5" href="#">
-                    <img src="../assets/images/moon_4139162.png" alt=""  style="width: 30px; height: 30px;" id="icon">
+                    <img src="../src/assets/images/moon_4139162.png" alt=""  style="width: 30px; height: 30px;" id="icon">
                 </a>
+                <a class="nav-link " href="sign.php">Sign In</a>
             </div>
 
             <!-- Navbar links and action items -->
@@ -266,17 +271,12 @@ const icon = document.getElementById("icon");
     icon.addEventListener("click", () => {
     body.classList.toggle("dark-theme");
     if (body.classList.contains("dark-theme")) {
-    icon.src = "../assets/images/sun_3226456.png"; 
+    icon.src = "../src/assets/images/sun_3226456.png"; 
      } else {
-    icon.src = "../assets/images/moon_4139162.png"; 
+    icon.src = "../src/assets/images/moon_4139162.png"; 
     }
     console.log('Dark mode:', document.body.classList.contains("dark-theme"));
 });
-
-document.getElementById('languageButton').addEventListener('click', function() {
-        this.classList.toggle('active');
-        // Add your language switching logic here
-    });
 
 </script>
 </body>

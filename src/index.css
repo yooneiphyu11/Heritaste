@@ -59,61 +59,6 @@ body {
     color: #B88A44;
 }
 
-.button-switch {
-    display: inline-flex;
-    width: 60px;
-    height: 28px;
-    border-radius: 20px;
-    border-color: #141313;
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
-    font-size: 16px;
-    color: white;
-    border: none;
-    font-family: Arial, sans-serif;
-}
-
-.button-switch .switch-text {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    width: 55%;
-    height: 100%;
-    transition: transform 0.4s;
-    pointer-events: none;
-}
-
-.button-switch .text-en {
-    background-color: #1E5B53;
-    left: 0;
-    border-radius: 45%;
-    font-size: 12px;
-}
-
-.button-switch .text-my {
-    font-size: 12px;
-    background-color: #B88A44;
-    right: 0;
-    transform: translateX(100%);
-    border-radius: 45%;
-}
-
-.button-switch.active .text-en {
-    transform: translateX(-100%);
-}
-
-.button-switch.active .text-my {
-    transform: translateX(0);
-}
-.btn-custom:hover{
-    background-color: #2b7067;
-    color:#B88A44;
-}
-.dark-theme .btn-custom:hover {
-    color: #f8f9fa; 
-}
 .food-image{
     animation: imgRotate 50s linear infinite;
 }

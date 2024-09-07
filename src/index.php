@@ -35,18 +35,7 @@ $random_my=$CRUD->random_my();
             </div>
 
             <div class="d-flex align-item-center me-5 order-lg-2">
-                <a class="nav-link mx-5" href="#">
-                    
-                    <button class="button-switch" id="languageButton" aria-label="Switch language" title="Switch language between English and Myanmar">
-                        <span class="switch-text text-en">EN
-                            <input type="hidden" name="en" value="my">
-                        </span>
-                        <span class="switch-text text-my">MY
-                            <input type="hidden" name="my" value="my">
-                        </span>
-                    </button>
-                    
-                </a>
+
                 <a class="nav-link me-5" href="#">
                     <img src="../src/assets/images/moon_4139162.png" alt=""  style="width: 30px; height: 30px;" id="icon">
                 </a>
@@ -104,9 +93,9 @@ $random_my=$CRUD->random_my();
              
                 <!-- protfolio image -->
                 <div class="col-md-6 tex-center mb-lg-0  mt-0" style="height: 600px;">
-                    <img src="../assets/layer3-removebg-preview.png" alt=""
+                    <img src="../src/assets/layer3-removebg-preview.png" alt=""
                     style="position:absolute;width: 550px;z-index: 1; margin-left: 6%;">
-                    <img src="../assets/food-removebg-preview.png" alt="food-image" class="food-image position-relative"
+                    <img src="../src/assets/food-removebg-preview.png" alt="food-image" class="food-image position-relative"
                      style="width: 320px; height: 320px;margin-left: 30%;z-index: 2;margin-top: 17%;">
                 </div>
                 <!-- protfolio text -->
@@ -142,16 +131,16 @@ $random_my=$CRUD->random_my();
                 <div class="col-lg-6">
                     <div class="row g-3">
                         <div class="col-6 text-start mb-0">
-                            <img class="img-fluid rounded w-100 zoomIn" src="../assets/food1.jpg" alt="">
+                            <img class="img-fluid rounded w-100 zoomIn" src="../src/assets/food1.jpg" alt="">
                         </div>
                         <div class="col-6 text-start">
-                            <img class="img-fluid rounded w-75 zoomIn" src="../assets/food3.jpg" style="margin-top: 16%;" alt="">
+                            <img class="img-fluid rounded w-75 zoomIn" src="../src/assets/food3.jpg" style="margin-top: 16%;" alt="">
                         </div>
                         <div class="col-6 text-end mt-0">
-                            <img class="img-fluid rounded w-75 zoomIn" src="../assets/food4.jpg" style="margin-top: 26%;" alt="">
+                            <img class="img-fluid rounded w-75 zoomIn" src="../src/assets/food4.jpg" style="margin-top: 26%;" alt="">
                         </div>
                         <div class="col-6 text-end mt-0">
-                            <img class="img-fluid rounded w-100 zoomIn" src="../assets/food2.jpg" style="margin-top: 10%;" alt="">
+                            <img class="img-fluid rounded w-100 zoomIn" src="../src/assets/food2.jpg" style="margin-top: 10%;" alt="">
                         </div>
                     </div>
                 </div>
@@ -211,8 +200,6 @@ $random_my=$CRUD->random_my();
                     <div class="border-des position-relative p-4" >
                         <a href="#" style="text-decoration: none;" class="recipe-text">
 
-                        <div class="position-absolute top-0 start-50 translate-middle ">
-                                <img src="data:image/png;base64,<?php echo base64_encode($e->photo) ?>" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;">
                             </div>
                             <div class="text-center mt-5 pt-3">
                                 <h3 style="color: #B88A44;"><?php echo $e->name ?></h3>
@@ -250,7 +237,7 @@ $random_my=$CRUD->random_my();
                     <div class="border-des position-relative p-4" >
                         <a href="#" style="text-decoration: none;" class="recipe-text">
                             <div class="position-absolute top-0 start-50 translate-middle">
-                                <img src="../assets/chicken-removebg-preview.png" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;">
+                                <img src="../src/assets/chicken-removebg-preview.png" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;">
                             </div>
                             <div class="text-center mt-5 pt-3">
                                 <h3 style="color: #B88A44;">Chicken Curry</h3>
@@ -467,7 +454,7 @@ $random_my=$CRUD->random_my();
                 <!-- 1 item -->
                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
+                        <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon Ei phyu</h5>
                     </div>
                     <p class="mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
@@ -475,7 +462,7 @@ $random_my=$CRUD->random_my();
                 <!-- 2 item -->
                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
+                        <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
@@ -484,7 +471,7 @@ $random_my=$CRUD->random_my();
                  <!-- 3 item -->
                  <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
+                        <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
@@ -493,7 +480,7 @@ $random_my=$CRUD->random_my();
                  <!-- 4 item -->
                  <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
+                        <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="slide mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
@@ -502,7 +489,7 @@ $random_my=$CRUD->random_my();
                <!-- 5 item -->
                <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                 <div class=" d-flex mt-2">
-                    <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
+                    <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                     <h5 style="color: #B88A44;">Yoon</h5>
                 </div>
                 <p class="slide mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
@@ -511,7 +498,7 @@ $random_my=$CRUD->random_my();
                 <!-- 6 item -->
                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
+                        <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="slide mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
@@ -520,7 +507,7 @@ $random_my=$CRUD->random_my();
                  <!-- 1 item -->
                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
+                        <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon Ei phyu</h5>
                     </div>
                     <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
@@ -528,7 +515,7 @@ $random_my=$CRUD->random_my();
                 <!-- 2 item -->
                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
+                        <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
@@ -537,7 +524,7 @@ $random_my=$CRUD->random_my();
                  <!-- 3 item -->
                  <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
+                        <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
@@ -546,7 +533,7 @@ $random_my=$CRUD->random_my();
                  <!-- 4 item -->
                  <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
+                        <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="slide mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
@@ -555,7 +542,7 @@ $random_my=$CRUD->random_my();
                 <!-- 5 item -->
                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
+                        <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
@@ -564,7 +551,7 @@ $random_my=$CRUD->random_my();
                 <!-- 6 item -->
                 <div class="sliderounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
+                        <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
@@ -796,9 +783,9 @@ $random_my=$CRUD->random_my();
         icon.addEventListener("click", () => {
         body.classList.toggle("dark-theme");
         if (body.classList.contains("dark-theme")) {
-        icon.src = "../assets/images/sun_3226456.png"; 
+        icon.src = "../src/assets/images/sun_3226456.png"; 
          } else {
-        icon.src = "../assets/images/moon_4139162.png"; 
+        icon.src = "../src/assets/images/moon_4139162.png"; 
         }
         console.log('Dark mode:', document.body.classList.contains("dark-theme"));
     });
@@ -808,16 +795,6 @@ $random_my=$CRUD->random_my();
             // Add your language switching logic here
         });
     
-       // the bookmark toggle
-       document.addEventListener("DOMContentLoaded", function () {
-            const bookmarkIcon = document.getElementById("bookmark-icon");
-
-            // Add click event listener to the bookmark icon
-            bookmarkIcon.addEventListener("click", function () {
-                // Redirect to sign-in page
-                window.location.href = "sign.php?redirect=" + encodeURIComponent(window.location.href);
-            });
-        });
     </script>
 </body>
 </html>
