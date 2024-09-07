@@ -421,6 +421,17 @@ try{
         echo "Delete form description_en failed.";
     }
     }
+
+    public function random_en(){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $random=$pdo->prepare("SELECT * FROM description_en,meal where description_en.EN_id=meal.EN_id  ORDER BY RAND() LIMIT 2;");
+        $random->execute();
+
+        $random_en=$random->fetchAll(PDO::FETCH_OBJ);
+        return $random_en;
+    }
 //-----------------------------------------------description_my table-----------------------
 
 public function insert_desMY($instructions,$ingredient,$pre_time,$cook_time,$photo){
@@ -524,11 +535,22 @@ try{
     }
     }
 
+    public function random_my(){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $random=$pdo->prepare("SELECT * FROM description_my ORDER BY RAND() LIMIT 6;");
+        $random->execute();
+
+        $random_my=$random->fetchAll(PDO::FETCH_OBJ);
+        return $random_my;
+    }
+
 //--------------------------------------------user table-----------------------------------
-    public function read_user(){
+    public function read_user($email){
         $DBC=new DBC();
     $pdo=$DBC->Connect();
-        $read_user=$pdo->prepare("Select * from `user`;");
+        $read_user=$pdo->prepare("Select * from `user` where email='$email';");
         $read_user->execute();
         
         $read=$read_user->fetchAll(PDO::FETCH_OBJ);

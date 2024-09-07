@@ -1,3 +1,8 @@
+<?php 
+require "database_connection.php";
+$CRUD=new CRUD();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +16,9 @@
      <link rel="stylesheet" href="sign.css">
     <!-- fontawesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg fixed-top navbar-light ">
@@ -110,14 +118,14 @@
                                             <span class="position-absolute top-50 start-0 translate-middle-y ps-3">                                            
                                                 <img src="../src/assets/images/email_6900561.png" alt="Icon" style="width: 30px;height: 30px;">
                                             </span>
-                                            <input type="text" class="form-control form-control-lg shadow-sm fs-6 border font-georgia ps-5"  placeholder="Email" required> 
+                                            <input type="text" class="form-control form-control-lg shadow-sm fs-6 border font-georgia ps-5"  placeholder="Email" required name="email"> 
                                         </div>
                                         
                                         <div class="col position-relative "> 
                                             <span class="position-absolute top-50 start-0 translate-middle-y ps-3">                                            
                                                 <img src="../src/assets/images/password_4403224.png" alt="Icon" style="width: 30px;height: 30px;">
                                             </span>
-                                            <input type="password" class="form-control form-control-lg shadow-sm fs-6 border font-georgia ps-5"  placeholder="Password" required minlength="8"> 
+                                            <input type="password" class="form-control form-control-lg shadow-sm fs-6 border font-georgia ps-5"  placeholder="Password" required minlength="8" name="pwd"> 
                                         </div>
 
                                         <div class="col py-4 d-flex font-georgia">
@@ -132,7 +140,7 @@
                                         <div class="col-8 mx-auto pb-3 text-center ">
                                             <button type="submit" class="btn 
                                             border border-1 border-secondary btn-custom
-                                            shadow-sm font-georgia  w-75">Sign in</button>
+                                            shadow-sm font-georgia  w-75" name="singin">Sign in</button>
                                         </div>
 
                                         <div class="col text-center pb-2">
@@ -143,6 +151,29 @@
                                             <h6 class="tt font-georgia text">Don't have an account?</h6>
                                         </div>
                                     </form>
+                                    <?php if(isset($_POST['singin'])){
+                                        $email=$_POST['email'];
+                                        $pwd=$_POST['pwd'];
+                                        $read_user=$CRUD->read_user($email);
+                                        if($read_user){
+                                            if(password_verify($pwd,$read_user['password'])){
+                                                echo "<script>alert('Login Successfully.');
+                                                 window.location.href = 'index.php'; 
+                                                </script>";  
+                                            }
+                                            else{
+                                                echo "<script>alert('Invalid Login!Please check Password');
+                                                 window.location.href = 'sign.php'; 
+                                                </script>";  
+                                            }
+                                        }
+                                        else{
+                                            echo "<script>alert('No user found with the email.Please Singup!');
+                                             window.location.href = 'sign.php'; 
+                                            </script>";  
+                                        }
+                                        
+                                    } ?>
                                     <!-- sign in start -->
                                     
                                     <!-- sign up start -->
@@ -155,21 +186,21 @@
                                                 <span class="position-absolute top-50 start-0 translate-middle-y ps-3">                                            
                                                     <img src="../src/assets/images/student_2995698.png" alt="Icon" style="width: 30px;height: 30px;">
                                                 </span>
-                                                <input type="text" class="form-control form-control-lg shadow-sm fs-6 border font-georgia ps-5"  placeholder="Your Name"required> 
+                                                <input type="text" class="form-control form-control-lg shadow-sm fs-6 border font-georgia ps-5"  placeholder="Your Name"required name="name"> 
                                             </div>
 
                                             <div class="col position-relative py-4"> 
                                                 <span class="position-absolute top-50 start-0 translate-middle-y ps-3">                                            
                                                     <img src="../src/assets/images/email_6900561.png" alt="Icon" style="width: 30px;height: 30px;">
                                                 </span>
-                                                <input type="text" class="form-control form-control-lg shadow-sm fs-6 border font-georgia ps-5"  placeholder="Email" required> 
+                                                <input type="text" class="form-control form-control-lg shadow-sm fs-6 border font-georgia ps-5"  placeholder="Email" required name="email"> 
                                             </div>
                                             
                                             <div class="col position-relative "> 
                                                 <span class="position-absolute top-50 start-0 translate-middle-y ps-3">                                            
                                                     <img src="../src/assets/images/password_4403224.png" alt="Icon" style="width: 30px;height: 30px;">
                                                 </span>
-                                                <input type="password" class="form-control form-control-lg shadow-sm fs-6 border font-georgia ps-5"  placeholder="Password" required minlength="8"> 
+                                                <input type="password" class="form-control form-control-lg shadow-sm fs-6 border font-georgia ps-5"  placeholder="Password" required minlength="8" name="pwd"> 
                                             </div>
 
                                             <div class="col py-4 d-flex font-georgia">
@@ -184,7 +215,7 @@
                                             <div class="col-8 mx-auto pb-3 text-center">
                                                 <button type="submit" class="btn 
                                                 border border-1 border-secondary btn-custom
-                                                shadow-sm font-georgia  w-75">Create Account</button>
+                                                shadow-sm font-georgia  w-75" name="singup">Create Account</button>
                                             </div>
 
                                             <div class="col text-center pb-2">
@@ -195,6 +226,21 @@
                                                 <h6 class="tt font-georgia text">Already have an account?</h6>
                                             </div>
                                         </form>
+                                        <?php 
+                                            if(isset($_POST['singup'])){
+                                                $name=$_POST['name'];
+                                                $email=$_POST['email'];
+                                                $pwd=$_POST['pwd'];
+                                                $existingUser = $CRUD->read_user($email);  
+                                                if ($existingUser) {  
+                                                    echo "<script>alert('Email already exists. Please choose another.');
+                                                     window.location.href = 'index.php'; 
+                                                    </script>";  
+                                                } else {  
+                                                    $CRUD->insert_user($name, $email, $pwd);  
+                                                }  
+                                            }
+                                        ?>
                                     <!-- sign up end -->
                                     </div>
                                 </div>
