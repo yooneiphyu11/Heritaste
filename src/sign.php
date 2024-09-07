@@ -8,7 +8,7 @@
     <!-- bootstrap css link -->
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <!-- css link -->
-     <link rel="stylesheet" href="../css/sign.css">
+     <link rel="stylesheet" href="sign.css">
     <!-- fontawesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -27,15 +27,20 @@
             </div>
 
             <div class="d-flex align-item-center me-5 order-lg-2">
-                <a class="nav-link mx-5" href="#">
-                    <button class="button-switch" id="languageButton" aria-label="Switch language" title="Switch language between English and Myanmar">
-                        <span class="switch-text text-en">EN</span>
-                        <span class="switch-text text-my">MY</span>
-                    </button>
-                </a>
+            <form id="languageForm " class="me-5 mt-1" style="border-radius: 20px;">
+                <div class="button-switch-container">
+                    <select id="languageSelect" class="language" aria-label="Select language" title="Select language"
+                    style="border: 2px solid #2b7067; border-radius: 15px; padding: 5px 10px; font-size: 16px; margin-right: 10px;">
+                    <option value="en">EN</option>
+                    <option value="my">MY</option>
+                    </select>
+                    <button type="submit" id="submitBtn" style="display: none;"></button>
+                </div>
+            </form>
                 <a class="nav-link me-5" href="#">
                     <img src="../assets/images/moon_4139162.png" alt=""  style="width: 30px; height: 30px;" id="icon">
                 </a>
+                <a class="nav-link " href="sign.php">Sign In</a>
             </div>
 
             <!-- Navbar links and action items -->
@@ -87,7 +92,7 @@
                             <div class="card-body border border-0 ">
                                 <!-- image  -->
                                 <div class="text-center ">
-                                    <img src="../assets/images/diet_561611.png" alt=""  style="width: 180px; height: 180px;">
+                                    <img src="../src/assets/images/diet_561611.png" alt=""  style="width: 180px; height: 180px;">
                                 <div>
                                 
                                 <!-- form start -->
@@ -103,14 +108,14 @@
 
                                         <div class="col position-relative py-4"> 
                                             <span class="position-absolute top-50 start-0 translate-middle-y ps-3">                                            
-                                                <img src="../assets/images/email_6900561.png" alt="Icon" style="width: 30px;height: 30px;">
+                                                <img src="../src/assets/images/email_6900561.png" alt="Icon" style="width: 30px;height: 30px;">
                                             </span>
                                             <input type="text" class="form-control form-control-lg shadow-sm fs-6 border font-georgia ps-5"  placeholder="Email" required> 
                                         </div>
                                         
                                         <div class="col position-relative "> 
                                             <span class="position-absolute top-50 start-0 translate-middle-y ps-3">                                            
-                                                <img src="../assets/images/password_4403224.png" alt="Icon" style="width: 30px;height: 30px;">
+                                                <img src="../src/assets/images/password_4403224.png" alt="Icon" style="width: 30px;height: 30px;">
                                             </span>
                                             <input type="password" class="form-control form-control-lg shadow-sm fs-6 border font-georgia ps-5"  placeholder="Password" required minlength="8"> 
                                         </div>
@@ -131,7 +136,7 @@
                                         </div>
 
                                         <div class="col text-center pb-2">
-                                            <img src="../assets/images/arrows_545213.png" alt="Icon" id="toggleIconSignIn" style="width: 40px;height: 30px;">
+                                            <img src="../src/assets/images/arrows_545213.png" alt="Icon" id="toggleIconSignIn" style="width: 40px;height: 30px;">
                                         </div>
 
                                         <div class="col">
@@ -148,21 +153,21 @@
 
                                             <div class="col position-relative pt-1"> 
                                                 <span class="position-absolute top-50 start-0 translate-middle-y ps-3">                                            
-                                                    <img src="../assets/images/student_2995698.png" alt="Icon" style="width: 30px;height: 30px;">
+                                                    <img src="../src/assets/images/student_2995698.png" alt="Icon" style="width: 30px;height: 30px;">
                                                 </span>
                                                 <input type="text" class="form-control form-control-lg shadow-sm fs-6 border font-georgia ps-5"  placeholder="Your Name"required> 
                                             </div>
 
                                             <div class="col position-relative py-4"> 
                                                 <span class="position-absolute top-50 start-0 translate-middle-y ps-3">                                            
-                                                    <img src="../assets/images/email_6900561.png" alt="Icon" style="width: 30px;height: 30px;">
+                                                    <img src="../src/assets/images/email_6900561.png" alt="Icon" style="width: 30px;height: 30px;">
                                                 </span>
                                                 <input type="text" class="form-control form-control-lg shadow-sm fs-6 border font-georgia ps-5"  placeholder="Email" required> 
                                             </div>
                                             
                                             <div class="col position-relative "> 
                                                 <span class="position-absolute top-50 start-0 translate-middle-y ps-3">                                            
-                                                    <img src="../assets/images/password_4403224.png" alt="Icon" style="width: 30px;height: 30px;">
+                                                    <img src="../src/assets/images/password_4403224.png" alt="Icon" style="width: 30px;height: 30px;">
                                                 </span>
                                                 <input type="password" class="form-control form-control-lg shadow-sm fs-6 border font-georgia ps-5"  placeholder="Password" required minlength="8"> 
                                             </div>
@@ -183,7 +188,7 @@
                                             </div>
 
                                             <div class="col text-center pb-2">
-                                                <img src="../assets/images/arrows_545213.png" alt="Icon" id="toggleIconSignUp" style="width: 40px;height: 30px;">
+                                                <img src="../src/assets/images/arrows_545213.png" alt="Icon" id="toggleIconSignUp" style="width: 40px;height: 30px;">
                                             </div>
 
                                             <div class="col">
@@ -220,9 +225,9 @@
     icon.addEventListener("click", () => {
         body.classList.toggle("dark-theme");
         if (body.classList.contains("dark-theme")) {
-        icon.src = "../assets/images/sun_3226456.png"; 
+        icon.src = "../src/assets/images/sun_3226456.png"; 
          } else {
-        icon.src = "../assets/images/moon_4139162.png"; 
+        icon.src = "../src/assets/images/moon_4139162.png"; 
         }
         console.log('Dark mode:', document.body.classList.contains("dark-theme"));
     });
@@ -251,17 +256,6 @@
         this.classList.toggle('active');
         // Add your language switching logic here
     });
-
-    document.getElementById("sign-in").addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevent form submission
-
-            // Retrieve redirect URL from query parameters
-            const urlParams = new URLSearchParams(window.location.search);
-            const redirectUrl = urlParams.get('redirect') || 'index.php';
-
-            // Simulate sign-in success
-            window.location.href = `${redirectUrl}?signedIn=true`;
-        });
     
 </script>
 </body>

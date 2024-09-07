@@ -7,7 +7,7 @@
  <!-- bootstrap css link -->
  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
  <!-- css link -->
-  <link rel="stylesheet" href="../css/recipeshow.css">
+  <link rel="stylesheet" href="recipeshow.css">
  <!-- fontawesome cdn link  -->
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -26,15 +26,21 @@
             </div>
 
             <div class="d-flex align-item-center me-5 order-lg-2">
-                <a class="nav-link mx-5" href="#">
-                    <button class="button-switch" id="languageButton" aria-label="Switch language" title="Switch language between English and Myanmar">
-                        <span class="switch-text text-en">EN</span>
-                        <span class="switch-text text-my">MY</span>
-                    </button>
-                </a>
+            <form id="languageForm " class="me-5 mt-1" style="border-radius: 20px;">
+                <div class="button-switch-container">
+                    <select id="languageSelect" class="language" aria-label="Select language" title="Select language"
+                    style="border: 2px solid #2b7067; border-radius: 15px; padding: 5px 10px; font-size: 16px; margin-right: 10px;">
+                    <option value="en">EN</option>
+                    <option value="my">MY</option>
+                    </select>
+                    <button type="submit" id="submitBtn" style="display: none;"></button>
+                </div>
+            </form>
+
                 <a class="nav-link me-5" href="#">
-                    <img src="../assets/images/moon_4139162.png" alt=""  style="width: 30px; height: 30px;" id="icon">
+                    <img src="../src/assets/images/moon_4139162.png" alt=""  style="width: 30px; height: 30px;" id="icon">
                 </a>
+                <a class="nav-link " href="sign.php">Sign In</a>
             </div>
 
             <!-- Navbar links and action items -->
@@ -100,7 +106,7 @@
                 </div>
 
                 <div class="col-lg-6 text-center ">
-                    <img src="../assets/chicken-removebg-preview.png" alt="">
+                    <img src="../src/assets/chicken-removebg-preview.png" alt="">
                 </div>
                 <div class="col mt-4">
                     <div class="d-flex align-items-center me-4 ">
@@ -137,7 +143,7 @@
                         <div class="border-des position-relative p-4" >
                             <a href="recipeshow.php" style="text-decoration: none;" class="recipe-text">
                                 <div class="position-absolute top-0 start-50 translate-middle ">
-                                    <img src="../assets/chicken-removebg-preview.png" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;">
+                                    <img src="../src/assets/chicken-removebg-preview.png" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;">
                                 </div>
                                 <div class="text-center mt-5 pt-3">
                                     <h3 style="color: #B88A44;">Chicken Curry</h3>
@@ -173,7 +179,7 @@
                         <div class="border-des position-relative p-4" >
                             <a href="recipeshow.php" style="text-decoration: none;" class="recipe-text">
                                 <div class="position-absolute top-0 start-50 translate-middle">
-                                    <img src="../assets/chicken-removebg-preview.png" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;">
+                                    <img src="../src/assets/chicken-removebg-preview.png" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;">
                                 </div>
                                 <div class="text-center mt-5 pt-3">
                                     <h3 style="color: #B88A44;">Chicken Curry</h3>
@@ -210,7 +216,7 @@
                         <div class="border-des position-relative p-4" >
                             <a href="recipeshow.php" style="text-decoration: none;" class="recipe-text">
                                 <div class="position-absolute top-0 start-50 translate-middle">
-                                    <img src="../assets/chicken-removebg-preview.png" alt="profile image" class="img-fluid" style="width: 200px; height: 200px;">
+                                    <img src="../src/assets/chicken-removebg-preview.png" alt="profile image" class="img-fluid" style="width: 200px; height: 200px;">
                                 </div>
                                 <div class="text-center mt-5 pt-3">
                                     <h3 style="color: #B88A44;">Chicken Curry</h3>
@@ -344,28 +350,13 @@
     icon.addEventListener("click", () => {
     body.classList.toggle("dark-theme");
     if (body.classList.contains("dark-theme")) {
-    icon.src = "../assets/images/sun_3226456.png"; 
+    icon.src = "../src/assets/images/sun_3226456.png"; 
      } else {
-    icon.src = "../assets/images/moon_4139162.png"; 
+    icon.src = "../src/assets/images/moon_4139162.png"; 
     }
     console.log('Dark mode:', document.body.classList.contains("dark-theme"));
 });
 
-document.getElementById('languageButton').addEventListener('click', function() {
-        this.classList.toggle('active');
-        // Add your language switching logic here
-    });
-
-   // the bookmark toggle
-   document.addEventListener("DOMContentLoaded", function () {
-        const bookmarkIcon = document.getElementById("bookmark-icon");
-
-        // Add click event listener to the bookmark icon
-        bookmarkIcon.addEventListener("click", function () {
-            // Redirect to sign-in page
-            window.location.href = "sign.php?redirect=" + encodeURIComponent(window.location.href);
-        });
-    });
 </script>
 </body>
 </html>
