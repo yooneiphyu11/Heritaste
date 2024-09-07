@@ -233,7 +233,11 @@
                                 </div>
                                 
                                 <div class="text-center"> 
-                                    <i class="fa-regular fa-bookmark fa-2x mt-2 bookmark" id="bookmark-icon"></i>
+                                    <form action=" " method="post">
+                                        <button type="submit">
+                                            <i class="fa-regular fa-bookmark fa-2x mt-2 bookmark" id="bookmark-icon"></i>
+                                        </button>
+                                    </form>
                                 </div>                                
                             </div>
                         </a>
