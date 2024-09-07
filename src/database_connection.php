@@ -597,7 +597,7 @@ try{
         $DBC=new DBC();
         $pdo=$DBC->Connect();
 
-        $delete_user=$pdo->prepare("Delete from user where Uid='$id';");
+        $delete_user=$pdo->prepare("DELETE from user where Uid='$id';");
         if($delete_user->execute()){
             echo "Delete user successfully.";
         }
@@ -605,4 +605,83 @@ try{
             echo "Delete user failed.";
         }
     }
+
+//------------------------------------------------------------review table-------------------------------------------
+
+
+    public function insert_review(){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $insert_review=$pdo->prepare("INSERT into review values ();");
+        if($insert_review->execute()){
+            echo "Message Successfully sent.";
+        }
+        else{
+            echo "Message Failed.";
+        }
+    }
+
+    public function read_review(){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $read_review=$pdo->prepare("SELECT * from review;");
+        $read_review->execute();
+
+        $read=$read_review->fetchAll(PDO::FETCH_OBJ);
+        return $read;
+    }
+
+    public function edit_review($id){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $edit_review=$pdo->prepare("SELECT * from review where review_id='$id';");
+        $edit_review->execute();
+
+        $edit=$edit_review->fetchAll(PDO::FETCH_OBJ);
+        return $edit;
+    }
+
+    public function delete_review($id){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $delete_review=$pdo->prepare("DELETE from review where review_id='$id'");
+        $delete_review->execute();
+    }
+
+//--------------------------------------------------favourite table-------------------------------------
+    public function insert_favourite($uid,$did,$mid){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $insert_favourite=$pdo->prepare("INSERT into favourite(Uid,Mid,Did) values('$uid','$did','$mid'); ");
+        $insert_favourite->execute();
+    }
+
+    public function read_favourite(){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $read_favourite=$pdo->prepare("SELECT * from favourite;");
+        $read_favourite->execute();
+
+        $read=$read_favourite->fetchAll(PDO::FETCH_OBJ);
+        return $read;
+    }
+
+    public function delete_favourite($id){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $delete_favourite=$pdo->prepare("DELETE from favourite where Fid='$id';");
+        $delete_favourite->execute();
+    }
+
+
+
+
+
 }
