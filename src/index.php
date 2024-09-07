@@ -2,8 +2,10 @@
 require "database_connection.php";
 $CRUD=new CRUD();
 $read_catalog=$CRUD->readCatalog();
-$random_en=$CRUD->random_en();
-$random_my=$CRUD->random_my();
+
+$meal_count=$CRUD->count_meal();
+$dessert_count=$CRUD->count_dessert();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,14 +38,32 @@ $random_my=$CRUD->random_my();
             <div class="d-flex align-item-center me-5 order-lg-2">
             <form id="languageForm" class="me-5 mt-1" style="border-radius: 20px; background-color: #f8f9fa; padding: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
             <div class="button-switch-container" style="display: flex; align-items: center; justify-content: center;">
-                    <select id="languageSelect" class="language" aria-label="Select language" title="Select language between English and Myanmar" 
+                    <select name="language" id="languageSelect" class="language" aria-label="Select language" title="Select language between English and Myanmar" 
                     style="border: 1px solid #ced4da; border-radius: 20px; padding: 5px 10px; font-size: 16px; margin-right: 10px;">
                     <option value="en" selected>EN</option>
                     <option value="my">MY</option>
             </select>
-                <button type="submit" id="submitBtn" style="display: none;"></button>
+                <button type="submit" id="submitBtn" style="display: none;" name="languageChange"></button>
             </div>
             </form>
+            <?php 
+                if(isset($_POST['languageChange'])){
+                    $random=[];
+                    $lang=$_POST['language'];
+                    $lang = htmlspecialchars(trim($lang), ENT_QUOTES, 'UTF-8');
+                    // echo "|".$lang."|";
+                    if($lang==='en'){
+                        $random=$CRUD->random_en();
+
+                    }
+                    elseif($lang==='my'){
+                        $random=$CRUD->random_my();
+                    }
+                    else{
+                        echo "No Language Supprot.";
+                    }
+                }
+            ?>
 
                 <a class="nav-link me-5" href="#">
                     <img src="../src/assets/images/moon_4139162.png" alt=""  style="width: 30px; height: 30px;" id="icon">
@@ -102,9 +122,9 @@ $random_my=$CRUD->random_my();
              
                 <!-- protfolio image -->
                 <div class="col-md-6 tex-center mb-lg-0  mt-0" style="height: 600px;">
-                    <img src="../src/assets/layer3-removebg-preview.png" alt=""
+                    <img src="assets/layer3-removebg-preview.png" alt=""
                     style="position:absolute;width: 550px;z-index: 1; margin-left: 6%;">
-                    <img src="../src/assets/food-removebg-preview.png" alt="food-image" class="food-image position-relative"
+                    <img src="assets/food-removebg-preview.png" alt="food-image" class="food-image position-relative"
                      style="width: 320px; height: 320px;margin-left: 30%;z-index: 2;margin-top: 17%;">
                 </div>
                 <!-- protfolio text -->
@@ -140,16 +160,16 @@ $random_my=$CRUD->random_my();
                 <div class="col-lg-6">
                     <div class="row g-3">
                         <div class="col-6 text-start mb-0">
-                            <img class="img-fluid rounded w-100 zoomIn" src="../src/assets/food1.jpg" alt="">
+                            <img class="img-fluid rounded w-100 zoomIn" src="assets/food1.jpg" alt="">
                         </div>
                         <div class="col-6 text-start">
-                            <img class="img-fluid rounded w-75 zoomIn" src="../src/assets/food3.jpg" style="margin-top: 16%;" alt="">
+                            <img class="img-fluid rounded w-75 zoomIn" src="assets/food3.jpg" style="margin-top: 16%;" alt="">
                         </div>
                         <div class="col-6 text-end mt-0">
-                            <img class="img-fluid rounded w-75 zoomIn" src="../src/assets/food4.jpg" style="margin-top: 26%;" alt="">
+                            <img class="img-fluid rounded w-75 zoomIn" src="assets/food4.jpg" style="margin-top: 26%;" alt="">
                         </div>
                         <div class="col-6 text-end mt-0">
-                            <img class="img-fluid rounded w-100 zoomIn" src="../src/assets/food2.jpg" style="margin-top: 10%;" alt="">
+                            <img class="img-fluid rounded w-100 zoomIn" src="assets/food2.jpg" style="margin-top: 10%;" alt="">
                         </div>
                     </div>
                 </div>
@@ -163,7 +183,7 @@ $random_my=$CRUD->random_my();
                     <div class="row g-4 mb-4">
                         <div class="col-6">
                            <div class="d-flex align-items-center px-3">
-                            <h1 class="flex-shrink-0 display-5 border-start border-5 px-2" style="color: #2b7067;">40</h1>
+                            <h1 class="flex-shrink-0 display-5 border-start border-5 px-2" style="color: #2b7067;"><?php echo htmlspecialchars($meal_count) ?></h1>
                             <div class="ps-4">
                                 <p class="mb-2">Recipes of</p>
                                 <h6 class="text-uppercase mb-0" style="color: #B88A44;">Meal</h6>
@@ -173,7 +193,7 @@ $random_my=$CRUD->random_my();
 
                         <div class="col-6">
                            <div class="d-flex align-items-center px-3">
-                            <h1 class="flex-shrink-0 display-5 border-start border-5 px-2" style="color: #2b7067;">40</h1>
+                            <h1 class="flex-shrink-0 display-5 border-start border-5 px-2" style="color: #2b7067;"><?php echo htmlspecialchars($dessert_count) ?></h1>
                             <div class="ps-4">
                                 <p class="mb-2">Recipes of</p>
                                 <h6 class="text-uppercase mb-0" style="color: #a86b11;">Desert</h6>
@@ -202,7 +222,7 @@ $random_my=$CRUD->random_my();
 
             <!-- Project Cards Row -->
             <div class="row" style="margin-top: 100px;">
-             <?php foreach($random_en as $e): ?>
+             <?php foreach($random as $e): ?>
 
             <!-- First Project Card -->
                 <div class="col-md-4 col-sm-6 " style="margin-bottom: 100px;">
