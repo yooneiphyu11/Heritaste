@@ -1,4 +1,11 @@
-i<!DOCTYPE html>
+<?php
+require "database_connection.php";
+$CRUD=new CRUD();
+$read_catalog=$CRUD->readCatalog();
+$random_en=$CRUD->random_en();
+$random_my=$CRUD->random_my();
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,10 +14,11 @@ i<!DOCTYPE html>
     <!-- Bootstrap CSS link -->
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <!-- Custom CSS link -->
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="index.css">
     <!-- Font Awesome CDN link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg fixed-top navbar-light ">
@@ -28,14 +36,21 @@ i<!DOCTYPE html>
 
             <div class="d-flex align-item-center me-5 order-lg-2">
                 <a class="nav-link mx-5" href="#">
+                    
                     <button class="button-switch" id="languageButton" aria-label="Switch language" title="Switch language between English and Myanmar">
-                        <span class="switch-text text-en">EN</span>
-                        <span class="switch-text text-my">MY</span>
+                        <span class="switch-text text-en">EN
+                            <input type="hidden" name="en" value="my">
+                        </span>
+                        <span class="switch-text text-my">MY
+                            <input type="hidden" name="my" value="my">
+                        </span>
                     </button>
+                    
                 </a>
                 <a class="nav-link me-5" href="#">
-                    <img src="../assets/images/moon_4139162.png" alt=""  style="width: 30px; height: 30px;" id="icon">
+                    <img src="../src/assets/images/moon_4139162.png" alt=""  style="width: 30px; height: 30px;" id="icon">
                 </a>
+                <a class="nav-link " href="sign.php">Sign In</a>
             </div>
 
             <!-- Navbar links and action items -->
@@ -54,18 +69,22 @@ i<!DOCTYPE html>
                     <li class="nav-item dropdown me-3">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="recipe.html" role="button" aria-expanded="false">Meal</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="recipe.php">Chicken</a></li>
-                            <li><a class="dropdown-item" href="recipe.php">Fish</a></li>
+                            <?php foreach($read_catalog as $c):  ?>
+                            <li><a class="dropdown-item" href="recipe.php?type=meal&cid=<?php echo $c->Cid; ?>"><?php echo htmlspecialchars($c->name); ?></a></li>
+                            <!-- <li><a class="dropdown-item" href="recipe.php">Fish</a></li>
                             <li><a class="dropdown-item" href="recipe.php">Pork</a></li>
-                            <li><a class="dropdown-item" href="recipe.php">Beef</a></li>
+                            <li><a class="dropdown-item" href="recipe.php">Beef</a></li> -->
+                            <?php endforeach; ?>
                         </ul>
                     </li>
 
                     <li class="nav-item dropdown me-3">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="recipe.html" role="button" aria-expanded="false">Dessert</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item"  href="recipe.php">Chicken</a></li>
-                            <li><a class="dropdown-item"  href="recipe.php">Fish</a></li>
+                        <?php foreach($read_catalog as $c):  ?>
+                            <li><a class="dropdown-item"  href="recipe.php?type=dessert&cid=<?php echo $c->Cid; ?>"><?php echo htmlspecialchars($c->name); ?></a></li>
+                            <!-- <li><a class="dropdown-item"  href="recipe.php">Fish</a></li> -->
+                            <?php endforeach; ?>
                         </ul>
                     </li>
 
@@ -92,7 +111,7 @@ i<!DOCTYPE html>
                 </div>
                 <!-- protfolio text -->
                 <div class="col-md-6 mt-5 mt-md-0 order-md-first position-relative  " style="z-index: 3;">
-                    <p class=" mb-1">Let Meet</p>
+                    <p class=" mb-1">Let's Meet</p>
                     <h1 class="text-uppercase fw-bold fs-md-1" style="font-size: 80px; color: #B88A44; line-height: .8; margin: 0;">
                         Myanmar 
                         <span style="color: #2b7067; font-size: 150px; margin: 0; padding: 0; display: inline; line-height: .8;">
@@ -104,7 +123,7 @@ i<!DOCTYPE html>
                     <p class="">Dive into the rich and diverse culinary heritage of Myanmar. From aromatic curries 
                     to delightful street food, explore traditional recipes that have been passed down through generations. 
                     </p>
-                    <a href="sign.html" class="btn px-3 mt-3 btn-custom" style="border-color: #2b7067;color: #B88A44;">Explore Recipes</a>
+                    <a href="sign.php" class="btn px-3 mt-3 btn-custom" style="border-color: #2b7067;color: #B88A44;">Explore Recipes</a>
                 </div>                
         </div>
     </section>
@@ -185,15 +204,18 @@ i<!DOCTYPE html>
 
             <!-- Project Cards Row -->
             <div class="row" style="margin-top: 100px;">
-                <!-- First Project Card -->
+            <?php foreach($random_en as $e): ?>
+
+            <!-- First Project Card -->
                 <div class="col-md-4 col-sm-6 " style="margin-bottom: 100px;">
                     <div class="border-des position-relative p-4" >
                         <a href="#" style="text-decoration: none;" class="recipe-text">
-                            <div class="position-absolute top-0 start-50 translate-middle ">
-                                <img src="../assets/chicken-removebg-preview.png" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;">
+
+                        <div class="position-absolute top-0 start-50 translate-middle ">
+                                <img src="data:image/png;base64,<?php echo base64_encode($e->photo) ?>" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;">
                             </div>
                             <div class="text-center mt-5 pt-3">
-                                <h3 style="color: #B88A44;">Chicken Curry</h3>
+                                <h3 style="color: #B88A44;"><?php echo $e->name ?></h3>
                                 <p style="text-align: justify;">Let's try the best of Myanmar chicken curry. I hope you will enjoy. Let's try the best of Myanmar chicken curry. I hope you will enjoy.</p>
                             </div>
                             <div class="mt-5 d-flex justify-content-around px-3" >
@@ -202,7 +224,7 @@ i<!DOCTYPE html>
                                         <i class="fa-regular fa-clock me-2"></i>
                                         <p class="fs-6 m-0">Prepare</p>
                                     </div>
-                                    <span class="fs-6" style="color: #2b7067;">25min</span>
+                                    <span class="fs-6" style="color: #2b7067;"><?php echo $e->pre_time ?>min</span>
                                 </div>
                                 
                                 <div class="text-center">
@@ -210,7 +232,7 @@ i<!DOCTYPE html>
                                         <i class="fa-regular fa-clock me-2"></i>
                                         <p class="fs-6 m-0">Cooking</p>
                                     </div>
-                                    <span class="fs-6" style="color: #2b7067;">25min</span>
+                                    <span class="fs-6" style="color: #2b7067;"><?php echo $e->cook_time ?>min</span>
                                 </div>
                                 
                                 <div class="text-center"> 
@@ -218,11 +240,13 @@ i<!DOCTYPE html>
                                 </div>                                
                             </div>
                         </a>
-                    </div>
+                                            </div>
                 </div>
+<?php endforeach;?>
+
 
                 <!-- Second Project Card -->
-                <div class="col-md-4 col-sm-6" >
+                <!-- <div class="col-md-4 col-sm-6" >
                     <div class="border-des position-relative p-4" >
                         <a href="#" style="text-decoration: none;" class="recipe-text">
                             <div class="position-absolute top-0 start-50 translate-middle">
@@ -256,10 +280,10 @@ i<!DOCTYPE html>
                             
                         </a>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Third Project Card -->
-                <div class="col-md-4 col-sm-6" style="margin-bottom: 100px;">
+                <!-- <div class="col-md-4 col-sm-6" style="margin-bottom: 100px;">
                     <div class="border-des position-relative p-4" >
                         <a href="#" style="text-decoration: none;" class="recipe-text">
                             <div class="position-absolute top-0 start-50 translate-middle">
@@ -293,10 +317,10 @@ i<!DOCTYPE html>
                             
                         </a>
                     </div>
-                </div>
+                </div> -->
 
                    <!-- fourth Project Card -->
-                   <div class="col-md-4 col-sm-6" >
+                   <!-- <div class="col-md-4 col-sm-6" >
                     <div class="border-des position-relative p-4" >
                         <a href="#" style="text-decoration: none;" class="recipe-text">
                             <div class="position-absolute top-0 start-50 translate-middle">
@@ -329,10 +353,10 @@ i<!DOCTYPE html>
                             </div>
                         </a>
                     </div>
-                </div>
+                </div> -->
 
                  <!-- five Project Card -->
-                 <div class="col-md-4 col-sm-6" >
+                 <!-- <div class="col-md-4 col-sm-6" >
                     <div class="border-des position-relative p-4 " >
                         <a href="#" style="text-decoration: none;" class="recipe-text">
                             <div class="position-absolute top-0 start-50 translate-middle ">
@@ -367,10 +391,10 @@ i<!DOCTYPE html>
                             
                         </a>
                     </div>
-                </div>
+                </div> -->
 
                  <!-- six Project Card -->
-                 <div class="col-md-4 col-sm-6" >
+                 <!-- <div class="col-md-4 col-sm-6" >
                     <div class="border-des position-relative p-4">
                         <a href="#" style="text-decoration: none;" class="recipe-text">
                             <div class="position-absolute top-0 start-50 translate-middle ">
@@ -404,7 +428,7 @@ i<!DOCTYPE html>
                             
                         </a>
                     </div>
-                </div>
+                </div> -->
 
             </div>
         </div>
