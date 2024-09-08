@@ -175,7 +175,7 @@ $CRUD=new CRUD();
                                     <!-- sign in start -->
                                     
                                     <!-- sign up start -->
-                                        <form action="index.php" method="post" class="sign-up row form-container " id="sign-up">
+                                        <form action="" method="post" class="sign-up row form-container " id="sign-up">
                                             <div class="col">  
                                                 <h3 class="fs-4 mt-3 font-georgia mb-2">Sign up</h3>
                                             </div> 
@@ -210,10 +210,10 @@ $CRUD=new CRUD();
                                                 </div>
                                             </div>
 
-                                            <!-- <div class="col py-4">
+                                            <div class="col py-4">
                                             <input type="submit" class="btn border border-1 border-secondary btn-custom shadow-sm font-georgia w-75" 
                                             name="signup" value="Sign Up">
-                                            </div> -->
+                                            </div>
                                         
                                             <div class="col text-center pb-2">
                                                 <img src="../src/assets/images/arrows_545213.png" alt="Icon" id="toggleIconSignUp" style="width: 40px;height: 30px;">
@@ -228,6 +228,7 @@ $CRUD=new CRUD();
                                                 $name=$_POST['name'];
                                                 $email=$_POST['email'];
                                                 $pwd=$_POST['pwd'];
+                                                
                                                 $existingUser = $CRUD->read_user($email);  
                                                 if ($existingUser) {  
                                                     echo "<script>
@@ -276,15 +277,6 @@ $CRUD=new CRUD();
         console.log('Dark mode:', document.body.classList.contains("dark-theme"));
     });
 
-    // Prevent button default action and toggle forms
-    signInForm.addEventListener("submit", (event) => {
-        event.preventDefault(); 
-    });
-
-    signUpForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-    });
-
     // Toggle between sign in and sign up forms
     toggleIconSignIn.addEventListener("click", () => {
         signInForm.classList.remove("active");
@@ -295,12 +287,6 @@ $CRUD=new CRUD();
         signUpForm.classList.remove("active");
         signInForm.classList.add("active");
     });
-
-    document.getElementById('languageButton').addEventListener('click', function() {
-        this.classList.toggle('active');
-        // Add your language switching logic here
-    });
-    
 </script>
 </body>
 </html>
