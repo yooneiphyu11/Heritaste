@@ -231,8 +231,7 @@ $CRUD=new CRUD();
                                                 $email=$_POST['email'];
                                                 $pwd=$_POST['pwd'];
                                                 
-                                                $existingUser = $CRUD->read_userwithemail($email);  
-                                                if ($email === $existingUser['email']) {  
+
                                                     echo "<script>
                                                             alert('Email already exists. Please choose another.');
                                                             window.location.href = 'index.php'; 
