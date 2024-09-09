@@ -2,8 +2,14 @@
 require "database_connection.php";
 $CRUD=new CRUD();
 $read_catalog=$CRUD->readCatalog();
-$random_en=$CRUD->random_en();
-$random_my=$CRUD->random_my();
+
+$meal_count=$CRUD->count_meal();
+$dessert_count=$CRUD->count_dessert();
+// $read_userwithemail=$CRUD->read_userwithemail($email);
+$read_user=$CRUD->read_user();
+$lang='en';
+$random=$CRUD->random_en();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +23,8 @@ $random_my=$CRUD->random_my();
     <link rel="stylesheet" href="index.css">
     <!-- Font Awesome CDN link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg fixed-top navbar-light ">
@@ -33,6 +41,42 @@ $random_my=$CRUD->random_my();
             </div>
 
             <div class="d-flex align-item-center me-5 order-lg-2">
+            <form  action="" method="post"  id="languageForm" class="me-5 mt-1" style="border-radius: 20px; background-color: #f8f9fa; padding: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <div class="button-switch-container" style="display: flex; align-items: center; justify-content: center;">
+                    <select name="language" id="languageSelect" class="language" aria-label="Select language" title="Select language between English and Myanmar" 
+                    style="border: 1px solid #ced4da; border-radius: 20px; padding: 5px 10px; font-size: 16px; margin-right: 10px;" onchange="this.form.submit();">
+                    <option value="en" <?php if (isset($_POST['language']) && $_POST['language'] === 'en') echo 'selected'; ?> selected>EN</option>  
+                <option value="my" <?php if (isset($_POST['language']) && $_POST['language'] === 'my') echo 'selected'; ?>>MY</option>  
+           </select>
+            <input type="hidden" name="languageChange" value="1">
+                <!-- !-- <button type="submit" id="submitBtn" style="display: none;" name="languageChange"></button> --> 
+            </div>
+            </form>
+            <?php 
+               if (isset($_POST['languageChange'])) {  
+                    $random=[];
+                    // $lang = isset($_POST['language']) ? $_POST['language'] : 'en';
+                    if (isset($_POST['language'])) {  
+                        $lang = $_POST['language'];  
+                    } else {  
+                        $lang = 'en'; // Default to 'en' if not set  
+                    } 
+                    $lang = htmlspecialchars(trim($lang), ENT_QUOTES, 'UTF-8');
+                    // echo "Selected Language: |" . $lang . "| <br>";
+                    if($lang==='en'){
+                        $random=$CRUD->random_en();
+                       
+                    }
+                    elseif($lang==='my'){
+                        $random=$CRUD->random_my();
+                        
+                    }
+                    else{
+                        echo "No Language Supprot.";
+                    }
+                }
+            ?>
+
                 <a class="nav-link me-5" href="#">
                     <img src="../src/assets/images/moon_4139162.png" alt=""  style="width: 30px; height: 30px;" id="icon">
                 </a>
@@ -53,10 +97,10 @@ $random_my=$CRUD->random_my();
                     </li>
                    
                     <li class="nav-item dropdown me-3">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="recipe.html" role="button" aria-expanded="false">Meal</a>
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="recipe.php" role="button" aria-expanded="false">Meal</a>
                         <ul class="dropdown-menu">
                             <?php foreach($read_catalog as $c):  ?>
-                            <li><a class="dropdown-item" href="recipe.php?type=meal&cid=<?php echo $c->Cid; ?>"><?php echo htmlspecialchars($c->name); ?></a></li>
+                            <li><a class="dropdown-item" href="recipe.php?type=meal&cid=<?php echo $c->Cid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
                              <!-- <li><a class="dropdown-item" href="recipe.php">Fish</a></li>
                             <li><a class="dropdown-item" href="recipe.php">Pork</a></li>
                             <li><a class="dropdown-item" href="recipe.php">Beef</a></li>  -->
@@ -68,7 +112,7 @@ $random_my=$CRUD->random_my();
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="recipe.html" role="button" aria-expanded="false">Dessert</a>
                         <ul class="dropdown-menu">
                         <?php foreach($read_catalog as $c):  ?>
-                            <li><a class="dropdown-item"  href="recipe.php?type=dessert&cid=<?php echo $c->Cid; ?>"><?php echo htmlspecialchars($c->name); ?></a></li>
+                            <li><a class="dropdown-item"  href="recipe.php?type=dessert&cid=<?php echo $c->Cid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
                              <!-- <li><a class="dropdown-item"  href="recipe.php">Fish</a></li> -->
                             <?php endforeach; ?>
                         </ul>
@@ -90,9 +134,9 @@ $random_my=$CRUD->random_my();
              
                 <!-- protfolio image -->
                 <div class="col-md-6 tex-center mb-lg-0  mt-0" style="height: 600px;">
-                    <img src="../src/assets/layer3-removebg-preview.png" alt=""
+                    <img src="assets/layer3-removebg-preview.png" alt=""
                     style="position:absolute;width: 550px;z-index: 1; margin-left: 6%;">
-                    <img src="../src/assets/food-removebg-preview.png" alt="food-image" class="food-image position-relative"
+                    <img src="assets/food-removebg-preview.png" alt="food-image" class="food-image position-relative"
                      style="width: 320px; height: 320px;margin-left: 30%;z-index: 2;margin-top: 17%;">
                 </div>
                 <!-- protfolio text -->
@@ -128,16 +172,16 @@ $random_my=$CRUD->random_my();
                 <div class="col-lg-6">
                     <div class="row g-3">
                         <div class="col-6 text-start mb-0">
-                            <img class="img-fluid rounded w-100 zoomIn" src="../src/assets/food1.jpg" alt="">
+                            <img class="img-fluid rounded w-100 zoomIn" src="assets/food1.jpg" alt="">
                         </div>
                         <div class="col-6 text-start">
-                            <img class="img-fluid rounded w-75 zoomIn" src="../src/assets/food3.jpg" style="margin-top: 16%;" alt="">
+                            <img class="img-fluid rounded w-75 zoomIn" src="assets/food3.jpg" style="margin-top: 16%;" alt="">
                         </div>
                         <div class="col-6 text-end mt-0">
-                            <img class="img-fluid rounded w-75 zoomIn" src="../src/assets/food4.jpg" style="margin-top: 26%;" alt="">
+                            <img class="img-fluid rounded w-75 zoomIn" src="assets/food4.jpg" style="margin-top: 26%;" alt="">
                         </div>
                         <div class="col-6 text-end mt-0">
-                            <img class="img-fluid rounded w-100 zoomIn" src="../src/assets/food2.jpg" style="margin-top: 10%;" alt="">
+                            <img class="img-fluid rounded w-100 zoomIn" src="assets/food2.jpg" style="margin-top: 10%;" alt="">
                         </div>
                     </div>
                 </div>
@@ -151,7 +195,7 @@ $random_my=$CRUD->random_my();
                     <div class="row g-4 mb-4">
                         <div class="col-6">
                            <div class="d-flex align-items-center px-3">
-                            <h1 class="flex-shrink-0 display-5 border-start border-5 px-2" style="color: #2b7067;">40</h1>
+                            <h1 class="flex-shrink-0 display-5 border-start border-5 px-2" style="color: #2b7067;"><?php echo htmlspecialchars($meal_count) ?></h1>
                             <div class="ps-4">
                                 <p class="mb-2">Recipes of</p>
                                 <h6 class="text-uppercase mb-0" style="color: #B88A44;">Meal</h6>
@@ -161,7 +205,7 @@ $random_my=$CRUD->random_my();
 
                         <div class="col-6">
                            <div class="d-flex align-items-center px-3">
-                            <h1 class="flex-shrink-0 display-5 border-start border-5 px-2" style="color: #2b7067;">40</h1>
+                            <h1 class="flex-shrink-0 display-5 border-start border-5 px-2" style="color: #2b7067;"><?php echo htmlspecialchars($dessert_count) ?></h1>
                             <div class="ps-4">
                                 <p class="mb-2">Recipes of</p>
                                 <h6 class="text-uppercase mb-0" style="color: #a86b11;">Desert</h6>
@@ -190,17 +234,18 @@ $random_my=$CRUD->random_my();
 
             <!-- Project Cards Row -->
             <div class="row" style="margin-top: 100px;">
-             <?php foreach($random_en as $e): ?>
+            <?php if (isset($random) && !empty($random)): 
+              foreach($random as $e): ?>
 
             <!-- First Project Card -->
                 <div class="col-md-4 col-sm-6 " style="margin-bottom: 100px;">
                     <div class="border-des position-relative p-4" >
-                        <a href="#" style="text-decoration: none;" class="recipe-text">
+                        <a href="recipeshow.php?eid=<?php echo $e->EN_id;?>&type=meal" style="text-decoration: none;" class="recipe-text">
                             <div class="position-absolute top-0 start-50 translate-middle ">
                                  <img src="data:image/png;base64,<?php echo base64_encode($e->photo) ?>" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;">
                             </div>
                             <div class="text-center mt-5 pt-3">
-                                <h3 style="color: #B88A44;"><?php echo $e->name ?></h3>
+                                <h3 style="color: #B88A44;"><?php  echo htmlspecialchars($e->name)  ?></h3>
                                 <p style="text-align: justify;">Let's try the best of Myanmar chicken curry. I hope you will enjoy. Let's try the best of Myanmar chicken curry. I hope you will enjoy.</p>
                             </div>
                             <div class="mt-5 d-flex justify-content-around px-3" >
@@ -227,7 +272,10 @@ $random_my=$CRUD->random_my();
                         </a>
                      </div>
             </div>
-<?php endforeach;?> 
+            <?php endforeach; ?>  
+              <?php else: ?>  
+                  <p>No recipes available for the selected language.</p>  
+              <?php endif; ?> 
 
 
                 <!-- Second Project Card -->
@@ -434,9 +482,11 @@ $random_my=$CRUD->random_my();
         </div>
 
         <div class="review-box mb-4" >
-            <form class="ms-lg-4" >
+            <form class="ms-lg-4" method="" action="post">
+                <?php  ?>
                 <div class="row mb-4 w-75 ms-4">
                     <div class="form-container col-6">
+                        <input type="hidden" name="useremail" value="">
                         <textarea rows="1" class="form-control form-control-lg shadow-sm fs-6 border-1" style="border-color: #B88A44;" placeholder="Anything message you want to leave us"></textarea>
                     </div>
                     <div class="col-6 ">
@@ -444,6 +494,9 @@ $random_my=$CRUD->random_my();
                     </div>
                 </div> 
             </form>
+            <?php 
+
+            ?>
         </div>
        
         <!-- review  1 start -->

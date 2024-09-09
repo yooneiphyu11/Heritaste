@@ -1,3 +1,22 @@
+<?php
+require "database_connection.php";
+$CRUD=new CRUD();
+$read_catalog=$CRUD->readCatalog();
+
+
+$type=$_GET['type'];
+$cid=$_GET['cid'];
+
+$lang='en';
+if($type==='meal'){
+    $read=$CRUD->read_desen_mealbyCid($cid);
+}
+else{
+    $read=$CRUD->read_desen_dessertbyCid($cid);
+}
+// echo $type,$cid;
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +30,9 @@
      <link rel="stylesheet" href="recipe.css">
     <!-- fontawesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg fixed-top navbar-light ">
@@ -27,16 +49,56 @@
             </div>
 
             <div class="d-flex align-item-center me-5 order-lg-2">
-            <form id="languageForm " class="me-5 mt-1" style="border-radius: 20px;">
+            <form id="languageForm " class="me-5 mt-1" style="border-radius: 20px;" method="post" action=" ">
+                <!-- <input type="hidden" value="$type" name="type">
+                <input type="hidden" value="$cid" name="cid"> -->
                 <div class="button-switch-container">
-                    <select id="languageSelect" class="language" aria-label="Select language" title="Select language"
-                    style="border: 2px solid #2b7067; border-radius: 15px; padding: 5px 10px; font-size: 16px; margin-right: 10px;">
-                    <option value="en">EN</option>
-                    <option value="my">MY</option>
-                    </select>
-                    <button type="submit" id="submitBtn" style="display: none;"></button>
+                <select name="language" id="languageSelect" class="language" aria-label="Select language" title="Select language between English and Myanmar" 
+                    style="border: 1px solid #ced4da; border-radius: 20px; padding: 5px 10px; font-size: 16px; margin-right: 10px;" onchange="this.form.submit();">
+                    <option value="en" <?php if (isset($_POST['language']) && $_POST['language'] === 'en') echo 'selected'; ?> selected>EN</option>  
+                <option value="my" <?php if (isset($_POST['language']) && $_POST['language'] === 'my') echo 'selected'; ?>>MY</option>  
+           </select>
+            <input type="hidden" name="languageChange" value="1">
                 </div>
             </form>
+            <?php 
+               if (isset($_POST['languageChange'])) {  
+                    $read=[];
+                    // $type=$_POST['type'];
+                    // $cid=$_POST['cid'];
+                    // $lang = isset($_POST['language']) ? $_POST['language'] : 'en';
+                    if (isset($_POST['language'])) {  
+                        $lang = $_POST['language'];  
+                    } else {  
+                        $lang = 'en'; // Default to 'en' if not set  
+                    } 
+                    $lang = htmlspecialchars(trim($lang), ENT_QUOTES, 'UTF-8');
+                    // echo "Selected Language: |" . $lang . "| <br>";
+                    if($lang==='en'){
+                        // $read=$CRUD->read_desen();
+                       
+                        if($type==='meal'){
+                            $read=$CRUD->read_desen_mealbyCid($cid);
+                            $type="meal";
+                        }
+                        elseif($type==='dessert'){
+                            $read=$CRUD->read_desen_dessertbyCid($cid);
+                            $type="dessert"; 
+                        }
+                    }
+                    elseif($lang==='my'){
+                         if($type ==='meal'){
+                        $read=$CRUD->read_desMy_mealbyCid($cid);$type="meal";
+                         }
+                         elseif($type==='dessert'){
+                            $read=$CRUD->read_desMy_dessertbyCid($cid);$type="dessert";
+                         }
+                    }
+                    else{
+                        echo "No Language Supprot.";
+                    }
+                }
+            ?>
                 <a class="nav-link me-5" href="#">
                     <img src="../src/assets/images/moon_4139162.png" alt=""  style="width: 30px; height: 30px;" id="icon">
                 </a>
@@ -59,18 +121,23 @@
                     <li class="nav-item dropdown me-3">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="recipe.html" role="button" aria-expanded="false">Meal</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="recipe.php">Chicken</a></li>
+                        <?php foreach($read_catalog as $c):  ?>
+                            <li><a class="dropdown-item" href="recipe.php?type=meal&cid=<?php echo $c->Cid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
+                            <!-- <li><a class="dropdown-item" href="recipe.php">Chicken</a></li>
                             <li><a class="dropdown-item" href="recipe.php">Fish</a></li>
                             <li><a class="dropdown-item" href="recipe.php">Pork</a></li>
-                            <li><a class="dropdown-item" href="recipe.php">Beef</a></li>
+                            <li><a class="dropdown-item" href="recipe.php">Beef</a></li> -->
+                            <?php endforeach; ?>
                         </ul>
                     </li>
 
                     <li class="nav-item dropdown me-3">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="recipe.html" role="button" aria-expanded="false">Dessert</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item"  href="recipe.php">Chicken</a></li>
-                            <li><a class="dropdown-item"  href="recipe.php">Fish</a></li>
+                        <?php foreach($read_catalog as $c):  ?>
+                            <li><a class="dropdown-item"  href="recipe.php?type=dessert&cid=<?php echo $c->Cid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
+                            <!-- <li><a class="dropdown-item"  href="recipe.php">Fish</a></li> -->
+                            <?php endforeach; ?>
                         </ul>
                     </li>
 
@@ -95,14 +162,17 @@
             <!-- Project Cards Row -->
             <div class="row" style="margin-top: 120px;position: relative;">
                 <!-- First Project Card -->
+                <?php if (isset($read) && !empty($read)): 
+              foreach($read as $e): ?>
                 <div class="col-md-4 col-sm-6 " style="margin-bottom: 100px;">
                     <div class="border-des position-relative p-4" >
-                        <a href="recipeshow.php" style="text-decoration: none;" class="recipe-text">
+                        <a href="recipeshow.php?eid=<?php echo $e->EN_id;?>&type=<?php echo $type?>" style="text-decoration: none;" class="recipe-text">
                             <div class="position-absolute top-0 start-50 translate-middle ">
-                                <img src="../src/assets/chicken-removebg-preview.png" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;">
+                            <img src="data:image/png;base64,<?php echo base64_encode($e->photo) ?>" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;">
+                            <!-- <img src="../src/assets/chicken-removebg-preview.png" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;"> -->
                             </div>
                             <div class="text-center mt-5 pt-3">
-                                <h3 style="color: #B88A44;">Chicken Curry</h3>
+                                <h3 style="color: #B88A44;"><?php  echo htmlspecialchars($e->name)  ?></h3>
                                 <p style="text-align: justify;">Let's try the best of Myanmar chicken curry. I hope you will enjoy. Let's try the best of Myanmar chicken curry. I hope you will enjoy.</p>
                             </div>
                             <div class="mt-5 d-flex justify-content-around px-3" >
@@ -111,7 +181,7 @@
                                         <i class="fa-regular fa-clock me-2"></i>
                                         <p class="fs-6 m-0">Prepare</p>
                                     </div>
-                                    <span class="fs-6" style="color: #2b7067;">25min</span>
+                                    <span class="fs-6" style="color: #2b7067;"><?php echo $e->pre_time ?>min</span>
                                 </div>
                                 
                                 <div class="text-center">
@@ -119,7 +189,7 @@
                                         <i class="fa-regular fa-clock me-2"></i>
                                         <p class="fs-6 m-0">Cooking</p>
                                     </div>
-                                    <span class="fs-6" style="color: #2b7067;">25min</span>
+                                    <span class="fs-6" style="color: #2b7067;"><?php echo $e->cook_time ?>min</span>
                                 </div>
                                 
                                 <div class="text-center"> 
@@ -129,9 +199,13 @@
                         </a>
                     </div>
                 </div>
+                <?php endforeach; ?>  
+              <?php else: ?>  
+                  <p>No recipes available for the selected language.</p>  
+              <?php endif; ?> 
 
                 <!-- Second Project Card -->
-                <div class="col-md-4 col-sm-6" >
+                <!-- <div class="col-md-4 col-sm-6" >
                     <div class="border-des position-relative p-4" >
                         <a href="recipeshow.php" style="text-decoration: none;" class="recipe-text">
                             <div class="position-absolute top-0 start-50 translate-middle">
@@ -165,159 +239,7 @@
                             
                         </a>
                     </div>
-                </div>
-
-                <!-- Third Project Card -->
-                <div class="col-md-4 col-sm-6" style="margin-bottom: 100px;">
-                    <div class="border-des position-relative p-4" >
-                        <a href="recipeshow.php" style="text-decoration: none;" class="recipe-text">
-                            <div class="position-absolute top-0 start-50 translate-middle">
-                                <img src="../assets/chicken-removebg-preview.png" alt="profile image" class="img-fluid" style="width: 200px; height: 200px;">
-                            </div>
-                            <div class="text-center mt-5 pt-3">
-                                <h3 style="color: #B88A44;">Chicken Curry</h3>
-                                <p style="text-align: justify;">Let's try the best of Myanmar chicken curry. I hope you will enjoy. Let's try the best of Myanmar chicken curry. I hope you will enjoy.</p>
-                            </div>
-                            <div class="mt-5 d-flex justify-content-around px-3" >
-                                <div class="text-center">
-                                    <div class="d-flex align-items-center justify-content-center me-2" >
-                                        <i class="fa-regular fa-clock me-2"></i>
-                                        <p class="fs-6 m-0">Prepare</p>
-                                    </div>
-                                    <span class="fs-6" style="color: #2b7067;">25min</span>
-                                </div>
-                                
-                                <div class="text-center">
-                                    <div class="d-flex align-items-center justify-content-center me-2">
-                                        <i class="fa-regular fa-clock me-2"></i>
-                                        <p class="fs-6 m-0">Cooking</p>
-                                    </div>
-                                    <span class="fs-6" style="color: #2b7067;">25min</span>
-                                </div>
-                                
-                                <div class="text-center"> 
-                                    <i class="fa-regular fa-bookmark fa-2x mt-2 bookmark" id="bookmark-icon"></i>
-                                </div>                                
-                            </div>
-                            
-                        </a>
-                    </div>
-                </div>
-
-                   <!-- fourth Project Card -->
-                   <div class="col-md-4 col-sm-6" >
-                    <div class="border-des position-relative p-4" >
-                        <a href="recipeshow.php" style="text-decoration: none;" class="recipe-text">
-                            <div class="position-absolute top-0 start-50 translate-middle">
-                                <img src="../assets/chicken-removebg-preview.png" alt="profile image" class="img-fluid" style="width: 200px; height: 200px;">
-                            </div>
-                            <div class="text-center mt-5 pt-3">
-                                <h3 style="color: #B88A44;">Chicken Curry</h3>
-                                <p style="text-align: justify;">Let's try the best of Myanmar chicken curry. I hope you will enjoy. Let's try the best of Myanmar chicken curry. I hope you will enjoy.</p>
-                            </div>
-                            <div class="mt-5 d-flex justify-content-around px-3" >
-                                <div class="text-center">
-                                    <div class="d-flex align-items-center justify-content-center me-2" >
-                                        <i class="fa-regular fa-clock me-2"></i>
-                                        <p class="fs-6 m-0">Prepare</p>
-                                    </div>
-                                    <span class="fs-6" style="color: #2b7067;">25min</span>
-                                </div>
-                                
-                                <div class="text-center">
-                                    <div class="d-flex align-items-center justify-content-center me-2">
-                                        <i class="fa-regular fa-clock me-2"></i>
-                                        <p class="fs-6 m-0">Cooking</p>
-                                    </div>
-                                    <span class="fs-6" style="color: #2b7067;">25min</span>
-                                </div>
-                                
-                                <div class="text-center"> 
-                                    <form action=" " method="post">
-                                        <button type="submit">
-                                            <i class="fa-regular fa-bookmark fa-2x mt-2 bookmark" id="bookmark-icon"></i>
-                                        </button>
-                                    </form>
-                                </div>                                
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                 <!-- five Project Card -->
-                 <div class="col-md-4 col-sm-6" >
-                    <div class="border-des position-relative p-4 " >
-                        <a href="recipeshow.php" style="text-decoration: none;" class="recipe-text">
-                            <div class="position-absolute top-0 start-50 translate-middle ">
-                                <img src="../assets/chicken-removebg-preview.png" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;">
-                            </div>
-                            <div class="text-center mt-5 pt-3">
-                                <h3 style="color: #B88A44;">Chicken Curry</h3>
-                                <p style="text-align: justify;">Let's try the best of Myanmar chicken curry. I hope you will enjoy. Let's try the best of Myanmar chicken curry. I hope you will enjoy.</p>
-                            </div>
-                            <div class="mt-5 d-flex justify-content-around px-3" >
-                                <div class="text-center">
-                                    <div class="d-flex align-items-center justify-content-center me-2" >
-                                        <i class="fa-regular fa-clock me-2"></i>
-                                        <p class="fs-6 m-0">Prepare</p>
-                                    </div>
-                                    <span class="fs-6" style="color: #2b7067;">25min</span>
-                                </div>
-                                
-                                <div class="text-center">
-                                    <div class="d-flex align-items-center justify-content-center me-2">
-                                        <i class="fa-regular fa-clock me-2"></i>
-                                        <p class="fs-6 m-0">Cooking</p>
-                                    </div>
-                                    <span class="fs-6" style="color: #2b7067;">25min</span>
-                                </div>
-                                
-                                <div class="text-center"> 
-                                    <i class="fa-regular fa-bookmark fa-2x mt-2 bookmark" id="bookmark-icon"></i>
-                                </div>                                
-                            </div>
-                             
-                        </a>
-                    </div>
-                </div>
-
-                 <!-- six Project Card -->
-                 <div class="col-md-4 col-sm-6" >
-                    <div class="border-des position-relative p-4">
-                        <a href="recipeshow.php" style="text-decoration: none;" class="recipe-text">
-                            <div class="position-absolute top-0 start-50 translate-middle ">
-                                <img src="../assets/chicken-removebg-preview.png" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;">
-                            </div>
-                            <div class="text-center mt-5 pt-3">
-                                <h3 style="color: #B88A44;">Chicken Curry</h3>
-                                <p style="text-align: justify;">Let's try the best of Myanmar chicken curry. I hope you will enjoy. Let's try the best of Myanmar chicken curry. I hope you will enjoy.</p>
-                            </div>
-                            <div class="mt-5 d-flex justify-content-around px-3" >
-                                <div class="text-center">
-                                    <div class="d-flex align-items-center justify-content-center me-2" >
-                                        <i class="fa-regular fa-clock me-2"></i>
-                                        <p class="fs-6 m-0">Prepare</p>
-                                    </div>
-                                    <span class="fs-6" style="color: #2b7067;">25min</span>
-                                </div>
-                                
-                                <div class="text-center">
-                                    <div class="d-flex align-items-center justify-content-center me-2">
-                                        <i class="fa-regular fa-clock me-2"></i>
-                                        <p class="fs-6 m-0">Cooking</p>
-                                    </div>
-                                    <span class="fs-6" style="color: #2b7067;">25min</span>
-                                </div>
-                                
-                                <div class="text-center"> 
-                                    <i class="fa-regular fa-bookmark fa-2x mt-2 bookmark" id="bookmark-icon"></i>
-                                </div>                                
-                            </div>
-                            
-                        </a>
-                    </div>
-                </div>
-
+                </div> -->
             </div>
         </div>
     </section>
