@@ -16,6 +16,8 @@ $CRUD=new CRUD();
      <link rel="stylesheet" href="sign.css">
     <!-- fontawesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -152,9 +154,9 @@ $CRUD=new CRUD();
                                     <?php if(isset($_POST['singin'])){
                                         $email=$_POST['email'];
                                         $pwd=$_POST['pwd'];
-                                        $read_user=$CRUD->read_user($email);
+                                        $read_user=$CRUD->read_userwithemail($email);
                                         if($read_user){
-                                            if(password_verify($pwd,$read_user['password'])){
+                                            if($pwd === $read_user['password']){
                                                 echo "<script>alert('Login Successfully.');
                                                  window.location.href = 'index.php'; 
                                                 </script>";  
@@ -175,7 +177,7 @@ $CRUD=new CRUD();
                                     <!-- sign in start -->
                                     
                                     <!-- sign up start -->
-                                        <form action="index.php" method="post" class="sign-up row form-container " id="sign-up">
+                                        <form action="" method="post" class="sign-up row form-container " id="sign-up">
                                             <div class="col">  
                                                 <h3 class="fs-4 mt-3 font-georgia mb-2">Sign up</h3>
                                             </div> 
@@ -210,10 +212,10 @@ $CRUD=new CRUD();
                                                 </div>
                                             </div>
 
-                                            <!-- <div class="col py-4">
+                                            <div class="col py-4">
                                             <input type="submit" class="btn border border-1 border-secondary btn-custom shadow-sm font-georgia w-75" 
                                             name="signup" value="Sign Up">
-                                            </div> -->
+                                            </div>
                                         
                                             <div class="col text-center pb-2">
                                                 <img src="../src/assets/images/arrows_545213.png" alt="Icon" id="toggleIconSignUp" style="width: 40px;height: 30px;">
@@ -228,14 +230,18 @@ $CRUD=new CRUD();
                                                 $name=$_POST['name'];
                                                 $email=$_POST['email'];
                                                 $pwd=$_POST['pwd'];
-                                                $existingUser = $CRUD->read_user($email);  
-                                                if ($existingUser) {  
+                                                
+                                                $existingUser = $CRUD->read_userwithemail($email);  
+                                                if ($email === $existingUser['email']) {  
                                                     echo "<script>
                                                             alert('Email already exists. Please choose another.');
                                                             window.location.href = 'index.php'; 
                                                           </script>"; 
                                                 } else {  
-                                                    $CRUD->insert_user($name, $email, $hashed_pwd);  
+                                                    $CRUD->insert_user($name, $email, $pwd);  
+                                                    echo "<script>alert('Sigup Successfully.');
+                                                    window.location.href = 'index.php'; 
+                                                   </script>"; 
                                                 }  
                                             }
                                         ?>
@@ -276,15 +282,6 @@ $CRUD=new CRUD();
         console.log('Dark mode:', document.body.classList.contains("dark-theme"));
     });
 
-    // Prevent button default action and toggle forms
-    signInForm.addEventListener("submit", (event) => {
-        event.preventDefault(); 
-    });
-
-    signUpForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-    });
-
     // Toggle between sign in and sign up forms
     toggleIconSignIn.addEventListener("click", () => {
         signInForm.classList.remove("active");
@@ -295,13 +292,6 @@ $CRUD=new CRUD();
         signUpForm.classList.remove("active");
         signInForm.classList.add("active");
     });
-
-    document.getElementById('languageButton').addEventListener('click', function() {
-        this.classList.toggle('active');
-        // Add your language switching logic here
-    });
-    
 </script>
 </body>
 </html>
-
