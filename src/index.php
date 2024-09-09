@@ -33,17 +33,16 @@ $random_my=$CRUD->random_my();
             </div>
 
             <div class="d-flex align-item-center me-5 order-lg-2">
-            <form id="languageForm" class="me-5 mt-1" style="border-radius: 20px; background-color: #f8f9fa; padding: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-            <div class="button-switch-container" style="display: flex; align-items: center; justify-content: center;">
-                    <select id="languageSelect" class="language" aria-label="Select language" title="Select language between English and Myanmar" 
-                    style="border: 1px solid #ced4da; border-radius: 20px; padding: 5px 10px; font-size: 16px; margin-right: 10px;">
-                    <option value="en" selected>EN</option>
+            <form id="languageForm " class="me-5 mt-1" style="border-radius: 20px;">
+                <div class="button-switch-container">
+                    <select id="languageSelect" class="language" aria-label="Select language" title="Select language"
+                    style="border: 2px solid #2b7067; border-radius: 15px; padding: 5px 10px; font-size: 16px; margin-right: 10px;">
+                    <option value="en">EN</option>
                     <option value="my">MY</option>
-            </select>
-                <button type="submit" id="submitBtn" style="display: none;"></button>
-            </div>
+                    </select>
+                    <button type="submit" id="submitBtn" style="display: none;"></button>
+                </div>
             </form>
-
                 <a class="nav-link me-5" href="#">
                     <img src="../src/assets/images/moon_4139162.png" alt=""  style="width: 30px; height: 30px;" id="icon">
                 </a>

@@ -81,13 +81,14 @@
             <form action="test.php" method="post">
                 <div class="mb-4">
                     <label for="meal" class="block text-sm font-medium text-gray-700">Select a Meal:</label>
-                    <select id="meal" name="Cid" class="mt-1 block w-full rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark-mode-varibales">
+                    <select id="meal" name="Cid" class="mt-1 block w-full rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 " style="height:50px">
                         <?php foreach($choose as $c): ?>
                             <option value="<?php echo $c->Cid; ?>"><?php echo htmlspecialchars($c->name); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <button type="submit" class="mt-4 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition" name="submit" value="meal">Submit</button>
+                <button type="submit" class="mt-3 w-full text-white py-2 rounded-md transition" name="submit" value="meal"
+                style="background-color:#6C9BCF;">Submit</button>
             </form>
         </div>
     </div>
@@ -137,20 +138,6 @@
         darkMode.querySelector('span:nth-child(2)').classList.toggle('active');
     })
     
-    
-    Orders.forEach(order => {
-        const tr = document.createElement('tr');
-        const trContent = `
-            <td>${order.productName}</td>
-            <td>${order.productNumber}</td>
-            <td>${order.paymentStatus}</td>
-            <td class="${order.status === 'Declined' ? 'danger' : order.status === 'Pending' ? 'warning' : 'primary'}">${order.status}</td>
-            <td class="primary">Details</td>
-        `;
-        tr.innerHTML = trContent;
-        document.querySelector('table tbody').appendChild(tr);
-    });
-
     </script>
 </body>
 </html>
