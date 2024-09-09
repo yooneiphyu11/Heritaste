@@ -739,10 +739,10 @@ try{
         $DBC=new DBC();
         $pdo=$DBC->Connect();
 
-        $read_review=$pdo->prepare("SELECT * from review;");
+        $read_review=$pdo->prepare("SELECT review.review, user.name FROM review JOIN user ON review.Uid = user.Uid order by RAND() limit 6;");
         $read_review->execute();
 
-        $read=$read_review->fetchAll(PDO::FETCH_OBJ);
+        $read=$read_review->fetchAll(PDO::FETCH_ASSOC);
         return $read;
     }
 

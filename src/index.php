@@ -17,6 +17,7 @@ if(isset($_GET['uid'])){
 else{
     $uid=0;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -85,7 +86,7 @@ else{
                 <a class="nav-link me-5" href="#">
                     <img src="../src/assets/images/moon_4139162.png" alt=""  style="width: 30px; height: 30px;" id="icon">
                 </a>
-                <a class="nav-link " href="sign.php">Sign In</a>
+                <a class="nav-link " href="sign.php?uid=<?php echo $uid;?>">Sign In</a>
             </div>
 
             <!-- Navbar links and action items -->
@@ -535,7 +536,7 @@ else{
                 }
                 else{
                     $review=$CRUD->insert_review($uid,$message);
-                    echo "<script>alert('Message Send Successfully')</script>";
+                    echo "<script>alert('Message sent Successfully.')</script>";
                 }
 
             }
@@ -545,111 +546,122 @@ else{
         <!-- review  1 start -->
         <div class="slider m-auto ">
             <div class="slide-track flex scroll-left">
+                <?php 
+                $review=$CRUD->read_review();
+                foreach($review as $v): ?>
                 <!-- 1 item -->
                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
                         <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon Ei phyu</h5>
+                        <h5 style="color: #B88A44;"><?php echo $v['name'] ?></h5>
                     </div>
-                    <p class="mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
+                    <p class="mb-2 mx-2 p-0 text-just"><?php echo $v['review'] ?>.</p>
                 </div>
+                <?php endforeach;?>
                 <!-- 2 item -->
-                <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
+                <!-- <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
                         <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
-                </div>
+                </div> -->
 
                  <!-- 3 item -->
-                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
+                 <!-- <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
                         <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
-                </div>
+                </div> -->
 
                  <!-- 4 item -->
-                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
+                 <!-- <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
                         <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="slide mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
-                </div>
+                </div> -->
 
                <!-- 5 item -->
-               <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
+               <!-- <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                 <div class=" d-flex mt-2">
                     <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                     <h5 style="color: #B88A44;">Yoon</h5>
                 </div>
                 <p class="slide mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-            </div>
+            </div> -->
 
                 <!-- 6 item -->
-                <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
+                <!-- <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
                         <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="slide mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
+                </div> -->
 
                  <!-- 1 item -->
+              
+                 <?php 
+                $review=$CRUD->read_review();
+                foreach($review as $v): ?>
+                <!-- 1 item -->
                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
-                        <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon Ei phyu</h5>
+                        <img src="assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
+                        <h5 style="color: #B88A44;"><?php echo $v['name'] ?></h5>
                     </div>
-                    <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
+                    <p class="mb-2 mx-2 p-0 text-just"><?php echo $v['review'] ?>.</p>
                 </div>
+                <?php endforeach;?>
+                
                 <!-- 2 item -->
-                <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
+                <!-- <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
                         <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
+                </div> -->
 
                  <!-- 3 item -->
-                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
+                 <!-- <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
                         <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
+                </div> -->
 
                  <!-- 4 item -->
-                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
+                 <!-- <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
                         <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="slide mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
+                </div> -->
 
                 <!-- 5 item -->
-                <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
+                <!-- <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
                         <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
+                </div> -->
 
                 <!-- 6 item -->
-                <div class="sliderounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
+                <!-- <div class="sliderounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
                         <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
+                </div> -->
 
             </div>
         </div>
@@ -658,110 +670,32 @@ else{
          <div class="slider m-auto ">
             <div class="slide-track flex scroll-right">
                 <!-- 1 item -->
+                   <!-- 1 item -->
+                   <?php 
+                $review=$CRUD->read_review();
+                foreach($review as $v): ?>
                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
                         <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon Ei phyu</h5>
+                        <h5 style="color: #B88A44;"><?php echo $v['name'] ?></h5>
                     </div>
-                    <p class="mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
+                    <p class="mb-2 mx-2 p-0 text-just"><?php echo $v['review'] ?></p>
                 </div>
+                <?php endforeach;?>
                 <!-- 2 item -->
+                <?php 
+                $review=$CRUD->read_review();
+                foreach($review as $v): ?>
                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
                         <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
+                        <h5 style="color: #B88A44;"><?php echo $v['name'] ?></h5>
                     </div>
-                    <p class="mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
+                    <p class="mb-2 mx-2 p-0 text-just"><?php echo $v['review'] ?></p>
                 </div>
+                <?php endforeach;?>
 
-                 <!-- 3 item -->
-                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
-                </div>
-
-                 <!-- 4 item -->
-                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="slide mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
-                </div>
-
-               <!-- 5 item -->
-               <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                <div class=" d-flex mt-2">
-                    <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                    <h5 style="color: #B88A44;">Yoon</h5>
-                </div>
-                <p class="slide mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-            </div>
-
-                <!-- 6 item -->
-                <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="slide mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
-
-                 <!-- 1 item -->
-                <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon Ei phyu</h5>
-                    </div>
-                    <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
-                <!-- 2 item -->
-                <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
-
-                 <!-- 3 item -->
-                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
-
-                 <!-- 4 item -->
-                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="slide mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
-
-                <!-- 5 item -->
-                <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
-
-                <!-- 6 item -->
-                <div class="sliderounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
+                 
 
             </div>
         </div>
