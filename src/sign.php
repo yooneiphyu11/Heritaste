@@ -1,6 +1,8 @@
 <?php 
 require "database_connection.php";
 $CRUD=new CRUD();
+$read_catalog=$CRUD->readCatalog();
+$uid=$_GET['uid'];
 
 ?>
 <!DOCTYPE html>
@@ -16,9 +18,7 @@ $CRUD=new CRUD();
      <link rel="stylesheet" href="sign.css">
     <!-- fontawesome cdn link  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+    
 </head>
 <body>
     <nav class="navbar navbar-expand-lg fixed-top navbar-light ">
@@ -67,18 +67,24 @@ $CRUD=new CRUD();
                     <li class="nav-item dropdown me-3">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="recipe.html" role="button" aria-expanded="false">Meal</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="recipe.php">Chicken</a></li>
+                        <?php foreach($read_catalog as $c):  ?>
+                            <li><a class="dropdown-item" href="recipe.php?type=meal&cid=<?php echo $c->Cid; ?>&uid=<?php echo $uid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
+                            <!-- <li><a class="dropdown-item" href="recipe.php">Chicken</a></li>
                             <li><a class="dropdown-item" href="recipe.php">Fish</a></li>
                             <li><a class="dropdown-item" href="recipe.php">Pork</a></li>
-                            <li><a class="dropdown-item" href="recipe.php">Beef</a></li>
+                            <li><a class="dropdown-item" href="recipe.php">Beef</a></li> -->
+                            <?php endforeach; ?>
                         </ul>
                     </li>
 
                     <li class="nav-item dropdown me-3">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="recipe.html" role="button" aria-expanded="false">Dessert</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item"  href="recipe.php">Chicken</a></li>
-                            <li><a class="dropdown-item"  href="recipe.php">Fish</a></li>
+                        <?php foreach($read_catalog as $c):  ?>
+                            <li><a class="dropdown-item"  href="recipe.php?type=dessert&cid=<?php echo $c->Cid; ?>&uid=<?php echo $uid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
+                           <!-- <li><a class="dropdown-item"  href="recipe.php">Fish</a></li> -->
+                           <?php endforeach; ?>
+
                         </ul>
                     </li>
 
