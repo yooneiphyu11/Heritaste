@@ -654,7 +654,7 @@ try{
         $read_user=$pdo->prepare("Select * from `user`;");
         $read_user->execute();
         
-        $read=$read_user->fetchAll(PDO::FETCH_OBJ);
+        $read=$read_user->fetchAll(PDO::FETCH_ASSOC);
         return $read;
     }
 
@@ -722,11 +722,11 @@ try{
 //------------------------------------------------------------review table-------------------------------------------
 
 
-    public function insert_review(){
+    public function insert_review($uid,$message){
         $DBC=new DBC();
         $pdo=$DBC->Connect();
 
-        $insert_review=$pdo->prepare("INSERT into review values ();");
+        $insert_review=$pdo->prepare("INSERT into review(review,Uid) values ('$message','$uid');");
         if($insert_review->execute()){
             echo "Message Successfully sent.";
         }
@@ -776,11 +776,19 @@ try{
         return $count['review_count'];
     }
 //--------------------------------------------------favourite table-------------------------------------
-    public function insert_favourite($uid,$did,$mid){
+    public function insert_favouritemid($uid,$mid){
         $DBC=new DBC();
         $pdo=$DBC->Connect();
 
-        $insert_favourite=$pdo->prepare("INSERT into favourite(Uid,Mid,Did) values('$uid','$did','$mid'); ");
+        $insert_favourite=$pdo->prepare("INSERT into favourite(Uid,Mid) values('$uid','$mid'); ");
+        $insert_favourite->execute();
+    }
+
+    public function insert_favouritedid($uid,$did){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $insert_favourite=$pdo->prepare("INSERT into favourite(Uid,Did) values('$uid','$did'); ");
         $insert_favourite->execute();
     }
 

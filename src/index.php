@@ -10,6 +10,13 @@ $read_user=$CRUD->read_user();
 $lang='en';
 $random=$CRUD->random_en();
 
+$user=$CRUD->read_user();
+if(isset($_GET['uid'])){
+    $uid=$_GET['uid'];
+}
+else{
+    $uid=0;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,7 +105,7 @@ $random=$CRUD->random_en();
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="recipe.php" role="button" aria-expanded="false">Meal</a>
                         <ul class="dropdown-menu">
                             <?php foreach($read_catalog as $c):  ?>
-                            <li><a class="dropdown-item" href="recipe.php?type=meal&cid=<?php echo $c->Cid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
+                            <li><a class="dropdown-item" href="recipe.php?type=meal&cid=<?php echo $c->Cid; ?>&uid=<?php echo $uid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
                              <!-- <li><a class="dropdown-item" href="recipe.php">Fish</a></li>
                             <li><a class="dropdown-item" href="recipe.php">Pork</a></li>
                             <li><a class="dropdown-item" href="recipe.php">Beef</a></li>  -->
@@ -110,7 +117,7 @@ $random=$CRUD->random_en();
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="recipe.html" role="button" aria-expanded="false">Dessert</a>
                         <ul class="dropdown-menu">
                         <?php foreach($read_catalog as $c):  ?>
-                            <li><a class="dropdown-item"  href="recipe.php?type=dessert&cid=<?php echo $c->Cid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
+                            <li><a class="dropdown-item"  href="recipe.php?type=dessert&cid=<?php echo $c->Cid; ?>&uid=<?php echo $uid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
                              <!-- <li><a class="dropdown-item"  href="recipe.php">Fish</a></li> -->
                             <?php endforeach; ?>
                         </ul>
@@ -238,14 +245,14 @@ $random=$CRUD->random_en();
             <!-- First Project Card -->
                 <div class="col-md-4 col-sm-6 " style="margin-bottom: 100px;">
                     <div class="border-des position-relative p-4" >
-                        <a href="recipeshow.php?eid=<?php echo $e->EN_id;?>&type=meal" style="text-decoration: none;" class="recipe-text">
+                        <a href="recipeshow.php?eid=<?php echo $e->EN_id;?>&type=meal&uid=<?php echo $uid; ?>" style="text-decoration: none;" class="recipe-text">
                             <div class="position-absolute top-0 start-50 translate-middle ">
                                  <img src="data:image/png;base64,<?php echo base64_encode($e->photo) ?>" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;">
                             </div>
                             <div class="text-center mt-5 pt-3">
                                 <h3 style="color: #B88A44;"><?php  echo htmlspecialchars($e->name)  ?></h3>
                                 <p style="text-align: justify;">Let's try the best of Myanmar chicken curry. I hope you will enjoy. Let's try the best of Myanmar chicken curry. I hope you will enjoy.</p>
-                            </div>
+                            </div> </a>
                             <div class="mt-5 d-flex justify-content-around px-3" >
                                 <div class="text-center">
                                     <div class="d-flex align-items-center justify-content-center me-2" >
@@ -264,10 +271,38 @@ $random=$CRUD->random_en();
                                 </div>
                                 
                                 <div class="text-center"> 
-                                    <i class="fa-regular fa-bookmark fa-2x mt-2 bookmark" id="bookmark-icon"></i>
+                                    <form action="" method="post">
+                                        <input type="hidden" name="uid" value="<?php echo $uid; ?>">
+                                    <button type="submit" name="favourite"> <i class="fa-regular fa-bookmark fa-2x mt-2 bookmark" id="bookmark-icon"></i></button> 
+                                    </form>
+                                    <?php 
+            if(isset($_POST['favourite'])){
+                $uid=$_POST['uid'];
+                $mid= $e->Mid;
+                $did='0';
+                     if($uid === '0'){
+                        echo "<script>alert('Please Create Account!');</script>";
+                     }
+                else{
+                        if($did==='0'){
+                            $review=$CRUD->insert_favouritemid($uid,$mid);
+                            echo "<script>alert('Favourite add successfully.');
+                             window.location.href = 'index.php;</script>";
+                        }
+                        else{
+                            $review=$CRUD->insert_favouritedid($uid,$did);
+                            echo "<script>alert('Favourite add successfully.')</script>";
+                        }
+
+                    }
+
+                }
+
+            
+            ?>
                                 </div>                                
                             </div>
-                        </a>
+                       
                      </div>
             </div>
             <?php endforeach; ?>  
@@ -480,20 +515,30 @@ $random=$CRUD->random_en();
         </div>
 
         <div class="review-box mb-4" >
-            <form class="ms-lg-4" method="" action="post">
-                <?php  ?>
+            <form class="ms-lg-4" method="post" action=""> 
                 <div class="row mb-4 w-75 ms-4">
                     <div class="form-container col-6">
-                        <input type="hidden" name="useremail" value="">
-                        <textarea rows="1" class="form-control form-control-lg shadow-sm fs-6 border-1" style="border-color: #B88A44;" placeholder="Anything message you want to leave us"></textarea>
+                        <input type="hidden" name="uid" value="<?php echo $uid; ?>">
+                        <textarea name="message" rows="1" class="form-control form-control-lg shadow-sm fs-6 border-1" style="border-color: #B88A44;" placeholder="Anything message you want to leave us"></textarea>
                     </div>
                     <div class="col-6 ">
-                        <button type="submit" class="btn btn-custom" style="height: 45px;border-color: #2b7067;color: #B88A44;">Send Message</button>
+                        <button name="sendmessage" type="submit" class="btn btn-custom" style="height: 45px;border-color: #2b7067;color: #B88A44;">Send Message</button>
                     </div>
                 </div> 
             </form>
             <?php 
+            if(isset($_POST['sendmessage'])){
+                $uid=$_POST['uid'];
+                $message=$_POST['message'];
+                if($uid === '0'){
+                    echo "<script>alert('Please Create Account!')</script>";
+                }
+                else{
+                    $review=$CRUD->insert_review($uid,$message);
+                    echo "<script>alert('Message Send Successfully')</script>";
+                }
 
+            }
             ?>
         </div>
        

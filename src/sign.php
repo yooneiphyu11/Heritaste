@@ -155,11 +155,14 @@ $CRUD=new CRUD();
                                         $email=$_POST['email'];
                                         $pwd=$_POST['pwd'];
                                         $read_user=$CRUD->read_userwithemail($email);
+                                        $uid=$read_user['Uid'];
                                         if($read_user){
                                             if($pwd === $read_user['password']){
-                                                echo "<script>alert('Login Successfully.');
-                                                 window.location.href = 'index.php'; 
-                                                </script>";  
+                                                echo "<script>alert('Login Successfully.'); 
+                                                  window.location.href = 'index.php?uid=$uid';</script>"; 
+                                                // header("Location:index.php?uid=$uid");
+                                                // exit();
+                                                 
                                             }
                                             else{
                                                 echo "<script>alert('Invalid Login!Please check Password');
@@ -231,18 +234,27 @@ $CRUD=new CRUD();
                                                 $email=$_POST['email'];
                                                 $pwd=$_POST['pwd'];
                                                 
+                                                $existingUser = $CRUD->read_userwithemail($email);  
+                                                if ($email === $existingUser['email']) {  
+                                                // $existingUser = $CRUD->read_user($email);  
+                                                // if ($existingUser) {  
 
                                                     echo "<script>
                                                             alert('Email already exists. Please choose another.');
                                                             window.location.href = 'index.php'; 
                                                           </script>"; 
                                                 } else {  
-                                                    $CRUD->insert_user($name, $email, $pwd);  
+                                                    $CRUD->insert_user($name, $email, $pwd);
+                                                    $read=$CRUD->read_userwithemail($email);
+                                                    $uid=$read['Uid'];  
                                                     echo "<script>alert('Sigup Successfully.');
-                                                    window.location.href = 'index.php'; 
-                                                   </script>"; 
+                                                    window.location.href = 'index.php?uid=$uid';</script>"; 
+                                                    // header("Location:index.php?uid=$uid");
+                                                    // exit();
+                                                    
                                                 }  
                                             }
+                                        
                                         ?>
                                     <!-- sign up end -->
                                     </div>
