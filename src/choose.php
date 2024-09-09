@@ -7,51 +7,51 @@
         <!-- Material Icons -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="../src/choose.css">
+        <link rel="stylesheet" href="../src/test.css">
         <script src="https://cdn.tailwindcss.com"></script>   
     </head>
 <body>
 <div class="container">
     <!-- Sidebar Section -->
     <aside>
-        <div class="toggle">
-            <div class="logo">
-                <img src="images/logo.png">
-                <h2>Heritaste</h2>
+            <div class="toggle">
+                <div class="logo">
+                    <img src="images/logo.png">
+                    <h1 style="color:#B88A44;font-size:25px;">Heritaste</h1>
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">
+                        close
+                    </span>
+                </div>
             </div>
-            <div class="close" id="close-btn">
-                <span class="material-icons-sharp">
-                    close
-                </span>
-            </div>
-        </div>
 
-        <div class="sidebar">
-            <a href="admin.html">
-                <span class="material-icons-sharp">dashboard</span>
-                <h3>Dashboard</h3>
-            </a>
-            <a href="user.html">
-                <span class="material-icons-sharp">person_outline</span>
-                <h3>Users</h3>
-            </a>
-            <a href="upload.html" class="active">
-                <span class="material-icons-sharp">receipt_long</span>
-                <h3>Upload</h3>
-            </a>
-            <a href="update.html">
-                <span class="material-icons-sharp">insights</span>
-                <h3>Update</h3>
-            </a>
-            <a href="newlogin.html">
-                <span class="material-icons-sharp">add</span>
-                <h3>New Login</h3>
-            </a>
-            <a href="logout.html">
-                <span class="material-icons-sharp">logout</span>
-                <h3>Logout</h3>
-            </a>
-        </div>            
+            <div class="sidebar">
+                <a href="admin.php">
+                    <span class="material-icons-sharp">dashboard</span>
+                    <h3>Dashboard</h3>
+                </a>
+                <a href="user.php"  >
+                    <span class="material-icons-sharp">person_outline</span>
+                    <h3>Users</h3>
+                </a>
+                <a href="choose.php" class="active">
+                    <span class="material-icons-sharp">receipt_long</span>
+                    <h3>Upload</h3>
+                </a>
+                <a href="update.php">
+                    <span class="material-icons-sharp">insights</span>
+                    <h3>Update</h3>
+                </a>
+                <a href="newlogin.php">
+                    <span class="material-icons-sharp">add</span>
+                    <h3>New Login</h3>
+                </a>
+                <a href="logout.php">
+                    <span class="material-icons-sharp">logout</span>
+                    <h3>Logout</h3>
+                </a>
+            </div>            
     </aside>
     <!-- End of Sidebar Section -->
 
@@ -122,19 +122,6 @@
         darkMode.querySelector('span:nth-child(2)').classList.toggle('active');
     })
     
-    
-    Orders.forEach(order => {
-        const tr = document.createElement('tr');
-        const trContent = `
-            <td>${order.productName}</td>
-            <td>${order.productNumber}</td>
-            <td>${order.paymentStatus}</td>
-            <td class="${order.status === 'Declined' ? 'danger' : order.status === 'Pending' ? 'warning' : 'primary'}">${order.status}</td>
-            <td class="primary">Details</td>
-        `;
-        tr.innerHTML = trContent;
-        document.querySelector('table tbody').appendChild(tr);
-    });
 
     </script>
 </body>

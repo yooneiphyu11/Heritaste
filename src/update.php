@@ -14,44 +14,44 @@
 <div class="container">
     <!-- Sidebar Section -->
     <aside>
-        <div class="toggle">
-            <div class="logo">
-                <img src="images/logo.png">
-                <h2>Heritaste</h2>
+            <div class="toggle">
+                <div class="logo">
+                    <img src="images/logo.png">
+                    <h1 style="color:#B88A44;font-size:25px;">Heritaste</h1>
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">
+                        close
+                    </span>
+                </div>
             </div>
-            <div class="close" id="close-btn">
-                <span class="material-icons-sharp">
-                    close
-                </span>
-            </div>
-        </div>
 
-        <div class="sidebar">
-            <a href="admin.html">
-                <span class="material-icons-sharp">dashboard</span>
-                <h3>Dashboard</h3>
-            </a>
-            <a href="user.html">
-                <span class="material-icons-sharp">person_outline</span>
-                <h3>Users</h3>
-            </a>
-            <a href="upload.html" >
-                <span class="material-icons-sharp">receipt_long</span>
-                <h3>Upload</h3>
-            </a>
-            <a href="update.html" class="active">
-                <span class="material-icons-sharp">insights</span>
-                <h3>Update</h3>
-            </a>
-            <a href="newlogin.html">
-                <span class="material-icons-sharp">add</span>
-                <h3>New Login</h3>
-            </a>
-            <a href="logout.html">
-                <span class="material-icons-sharp">logout</span>
-                <h3>Logout</h3>
-            </a>
-        </div>            
+            <div class="sidebar">
+                <a href="admin.php">
+                    <span class="material-icons-sharp">dashboard</span>
+                    <h3>Dashboard</h3>
+                </a>
+                <a href="user.php"  >
+                    <span class="material-icons-sharp">person_outline</span>
+                    <h3>Users</h3>
+                </a>
+                <a href="choose.php" >
+                    <span class="material-icons-sharp">receipt_long</span>
+                    <h3>Upload</h3>
+                </a>
+                <a href="update.php" class="active">
+                    <span class="material-icons-sharp">insights</span>
+                    <h3>Update</h3>
+                </a>
+                <a href="newlogin.php">
+                    <span class="material-icons-sharp">add</span>
+                    <h3>New Login</h3>
+                </a>
+                <a href="logout.php">
+                    <span class="material-icons-sharp">logout</span>
+                    <h3>Logout</h3>
+                </a>
+            </div>            
     </aside>
     <!-- End of Sidebar Section -->
 
@@ -72,7 +72,7 @@
                 </span>
             </div>
         </div>
-        <h1>Meal</h1>
+        <h1 style="color:  #2b7067;">Meal</h1>
             <!-- Analyses -->
             <div class="analyse">
                 <div class="sales">
@@ -121,7 +121,7 @@
             </div>
             <!-- End of Analyses -->
 
-            <h1 >Dessert</h1>
+            <h1 style="color:#2b7067;">Dessert</h1>
             <!-- Analyses -->
             <div class="analyse">
                 <div class="sales">

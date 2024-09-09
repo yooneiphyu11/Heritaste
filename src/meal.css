@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 :root{
-    --color-primary: #6C9BCF;
+    --color-primary:#2b7067;
     --color-danger: #FF0060;
     --color-success: #1B9C85;
     --color-warning: #F7D060;
@@ -240,6 +240,34 @@ main .analyse > div {
     box-shadow: var(--box-shadow);
     cursor: pointer;
     transition: all 0.3s ease;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Adds space between form fields */
+    width: 80%;
+
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+textarea, input[type="number"], input[type="file"], input[type="submit"] {
+    padding: 0.5rem;
+    border-radius: var(--border-radius-1);
+    border: 1px solid var(--color-info-dark);
+    width: 100%;
+}
+input[type="submit"] {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: var(--color-dark-variant);
 }
 
 main .analyse > div:hover {

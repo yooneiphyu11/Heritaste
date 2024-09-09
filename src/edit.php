@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-    <link rel="stylesheet" href="edit.css">
+    <link rel="stylesheet" href="eng.css">
     <script src="https://cdn.tailwindcss.com"></script> 
     <title>Responsive Dashboard Design #1 | AsmrProg</title>
 </head>
@@ -18,7 +18,7 @@
             <div class="toggle">
                 <div class="logo">
                     <img src="images/logo.png">
-                    <h2>Heritaste</h2>
+                    <h1 style="color:#B88A44;font-size:25px;">Heritaste</h1>
                 </div>
                 <div class="close" id="close-btn">
                     <span class="material-icons-sharp">
@@ -28,37 +28,37 @@
             </div>
 
             <div class="sidebar">
-                <a href="admin.html" >
+                <a href="admin.php">
                     <span class="material-icons-sharp">dashboard</span>
                     <h3>Dashboard</h3>
                 </a>
-                <a href="user.html">
+                <a href="user.php"  >
                     <span class="material-icons-sharp">person_outline</span>
                     <h3>Users</h3>
                 </a>
-                <a href="upload.html">
+                <a href="choose.php" >
                     <span class="material-icons-sharp">receipt_long</span>
                     <h3>Upload</h3>
                 </a>
-                <a href="update.html" class="active">
+                <a href="update.php" class="active">
                     <span class="material-icons-sharp">insights</span>
                     <h3>Update</h3>
                 </a>
-                <a href="newlogin.html">
+                <a href="newlogin.php">
                     <span class="material-icons-sharp">add</span>
                     <h3>New Login</h3>
                 </a>
-                <a href="logout.html">
+                <a href="logout.php">
                     <span class="material-icons-sharp">logout</span>
                     <h3>Logout</h3>
                 </a>
             </div>            
-        </aside>
+    </aside>
         <!-- End of Sidebar Section -->
 
         <!-- Main Content -->
         <main >
-        <h1 style="font-weight: bold; font-size: 30px;">Add Recipe</h1>
+        <h1 style="font-weight: bold; font-size: 30px;color:#2b7067;">Add Recipe</h1>
     <!-- Analysis Section -->
     <div class="analyse">
         <div class="sales">
