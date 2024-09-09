@@ -30,12 +30,12 @@ if($_SERVER['REQUEST_METHOD']==="POST"){
 
    if($type === 'meal '){
     $insert->insert_meal($ename,$Cid,$EN_id,$MY_id);
-    header("Location:index.php?msg=Insert New Meal Successful.");
+    header("Location:choice.php?msg=Insert New Meal Successful.");
     exit();
    }
    elseif($type ==='dessert '){
     $insert->insert_dessert($ename,$Cid,$EN_id,$MY_id);
-    header("Location:index.php?msg=Insert New Dessert Successful.");
+    header("Location:choice.php?msg=Insert New Dessert Successful.");
     exit();
    }
    else{
