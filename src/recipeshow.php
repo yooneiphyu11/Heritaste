@@ -3,6 +3,7 @@ require "database_connection.php";
 $CRUD=new CRUD();
 $read_catalog=$CRUD->readCatalog();
 $eid=$_GET['eid'];
+$uid=$_GET['uid'];
 $type=$_GET['type'];
 $lang='en';
 $random=$CRUD->random_en();
@@ -118,7 +119,7 @@ $read_desmydessertbyeid=$CRUD->read_desmy_dessertbyeid($eid);
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="recipe.html" role="button" aria-expanded="false">Meal</a>
                         <ul class="dropdown-menu">
                         <?php foreach($read_catalog as $c):  ?>
-                             <li><a class="dropdown-item" href="recipe.php?type=meal&cid=<?php echo $c->Cid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
+                             <li><a class="dropdown-item" href="recipe.php?type=meal&cid=<?php echo $c->Cid; ?>&uid=<?php echo $uid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
                             <!--<li><a class="dropdown-item" href="recipe.php">Chicken</a></li>
                             <li><a class="dropdown-item" href="recipe.php">Fish</a></li>
                             <li><a class="dropdown-item" href="recipe.php">Pork</a></li>
@@ -131,7 +132,7 @@ $read_desmydessertbyeid=$CRUD->read_desmy_dessertbyeid($eid);
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="recipe.html" role="button" aria-expanded="false">Dessert</a>
                         <ul class="dropdown-menu">
                         <?php foreach($read_catalog as $c):  ?>
-                            <li><a class="dropdown-item"  href="recipe.php?type=dessert&cid=<?php echo $c->Cid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
+                            <li><a class="dropdown-item"  href="recipe.php?type=dessert&cid=<?php echo $c->Cid; ?>&uid=<?php echo $uid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
                             <!-- <li><a class="dropdown-item"  href="recipe.php">Chicken</a></li>
                             <li><a class="dropdown-item"  href="recipe.php">Fish</a></li> -->
                             <?php endforeach; ?>
@@ -210,14 +211,14 @@ $read_desmydessertbyeid=$CRUD->read_desmy_dessertbyeid($eid);
               foreach($random as $e): ?>
                     <div class="col-md-4 col-sm-6 " style="margin-bottom: 100px;">
                         <div class="border-des position-relative p-4" >
-                            <a href="recipeshow.php?eid=<?php echo $e->EN_id;?>&type=<?php echo $type?>" style="text-decoration: none;" class="recipe-text">
+                            <a href="recipeshow.php?eid=<?php echo $e->EN_id;?>&type=<?php echo $type?>&uid=<?php echo $uid; ?>" style="text-decoration: none;" class="recipe-text">
                                 <div class="position-absolute top-0 start-50 translate-middle ">
                                     <img src="data:image/png;base64,<?php echo base64_encode($e->photo) ?>" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;">
                                 </div>
                                 <div class="text-center mt-5 pt-3">
                                     <h3 style="color: #B88A44;"><?php  echo htmlspecialchars($e->name)?></h3>
                                     <p style="text-align: justify;">Let's try the best of Myanmar chicken curry. I hope you will enjoy. Let's try the best of Myanmar chicken curry. I hope you will enjoy.</p>
-                                </div>
+                                </div></a>
                                 <div class="mt-5 d-flex justify-content-around px-3" >
                                     <div class="text-center">
                                         <div class="d-flex align-items-center justify-content-center me-2" >
@@ -236,10 +237,53 @@ $read_desmydessertbyeid=$CRUD->read_desmy_dessertbyeid($eid);
                                     </div>
                                     
                                     <div class="text-center"> 
-                                        <i class="fa-regular fa-bookmark fa-2x mt-2 bookmark" id="bookmark-icon"></i>
+                                    <form action="" method="post">
+                                <input type="hidden" name="uid" value="<?php echo htmlspecialchars($uid); ?>">  
+    <?php if ($e->Mid): ?>  
+        <input type="hidden" name="mid" value="<?php echo htmlspecialchars($e->Mid); ?>">  
+    <?php else: ?>  
+        <input type="hidden" name="did" value="<?php echo htmlspecialchars($e->Did); ?>">  
+    <?php endif; ?>  
+    <button type="submit" name="favourite">   
+        <i class="fa-regular fa-bookmark fa-2x mt-2 bookmark" id="bookmark-icon"></i>  
+    </button>  </form>
+
+    <?php 
+            
+           if (isset($_POST['favourite'])) {  
+               $uid = $_POST['uid'];  
+               $mid = isset($_POST['mid']) ? $_POST['mid'] : null; // Use null if mid is not set  
+               $did = isset($_POST['did']) ? $_POST['did'] : '0'; // Default '0' if did is not set  
+           
+               if ($uid === '0') {  
+                   echo "<script>  
+                           alert('Please Create Account!');  
+                           window.location.href = 'index.php'; // Fixed missing quotes  
+                         </script>";  
+               } else {  
+                   if ($did === '0') {  
+                       $review = $CRUD->insert_favouritemid($uid, $mid);  
+                       echo "<script>  
+                               alert('Favourite added successfully.');  
+                               window.location.href = 'index.php'; // Fixed missing quotes  
+                             </script>";  
+                   } else {  
+                       $review = $CRUD->insert_favouritedid($uid, $did);  
+                       echo "<script>  
+                               alert('Favourite added successfully.');  
+                               window.location.href = 'index.php'; // Fixed missing quotes  
+                             </script>";  
+                   }  
+               }  
+           }  
+            
+            ?>
+
+
+
                                     </div>                                
                                 </div>
-                            </a>
+                            
                         </div>
                     </div>
                     <?php endforeach; ?>  
