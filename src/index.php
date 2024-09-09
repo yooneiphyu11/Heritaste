@@ -23,8 +23,6 @@ $random=$CRUD->random_en();
     <link rel="stylesheet" href="index.css">
     <!-- Font Awesome CDN link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg fixed-top navbar-light ">
@@ -41,10 +39,10 @@ $random=$CRUD->random_en();
             </div>
 
             <div class="d-flex align-item-center me-5 order-lg-2">
-            <form  action="" method="post"  id="languageForm" class="me-5 mt-1" style="border-radius: 20px; background-color: #f8f9fa; padding: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <form  action="" method="post"  id="languageForm" class="me-5 mt-1" style="border-radius: 20px;">
             <div class="button-switch-container" style="display: flex; align-items: center; justify-content: center;">
                     <select name="language" id="languageSelect" class="language" aria-label="Select language" title="Select language between English and Myanmar" 
-                    style="border: 1px solid #ced4da; border-radius: 20px; padding: 5px 10px; font-size: 16px; margin-right: 10px;" onchange="this.form.submit();">
+                    style="border: 2px solid #2b7067; border-radius: 15px; padding: 5px 10px; font-size: 16px; margin-right: 10px;" onchange="this.form.submit();">
                     <option value="en" <?php if (isset($_POST['language']) && $_POST['language'] === 'en') echo 'selected'; ?> selected>EN</option>  
                 <option value="my" <?php if (isset($_POST['language']) && $_POST['language'] === 'my') echo 'selected'; ?>>MY</option>  
            </select>
