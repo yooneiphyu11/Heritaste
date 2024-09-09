@@ -226,15 +226,16 @@ public function update_dessert($name,$did){
     }
 }
 
-    public function count_dessert(){
-        $DBC=new DBC();
-        $pdo=$DBC->Connect();
+public function count_dessert(){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
 
-        $count_dessert=$pdo->prepare("SELECT COUNT(*) AS count FROM dessert;");
-        $result = $count_dessert->fetch(PDO::FETCH_ASSOC);  
-    
-    return $result['count'];
-    }
+    $count_dessert=$pdo->prepare("SELECT COUNT(*) AS dessert_count FROM dessert;");
+    $count_dessert->execute();
+
+    $count=$count_dessert->fetch(PDO::FETCH_ASSOC);
+    return $count['dessert_count'];
+}
 
 public function delete_dessertbyEN_id($id){
     $DBC=new DBC();
@@ -443,6 +444,52 @@ try{
         $random_en=$random->fetchAll(PDO::FETCH_OBJ);
         return $random_en;
     }
+
+    public function read_desen_mealbyCid($id){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $query=$pdo->prepare("SELECT * FROM description_en JOIN meal ON description_en.EN_id = meal.EN_id JOIN catalog ON meal.Cid = catalog.Cid WHERE catalog.Cid = '$id';");
+        $query->execute();
+
+        $read=$query->fetchAll(PDO::FETCH_OBJ);
+        return $read;
+
+    }
+
+    public function read_desen_dessertbyCid($id){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $query=$pdo->prepare("SELECT * FROM description_en JOIN dessert ON description_en.EN_id = dessert.EN_id JOIN catalog ON dessert.Cid = catalog.Cid WHERE catalog.Cid = '$id';");
+        $query->execute();
+
+        $read=$query->fetchAll(PDO::FETCH_OBJ);
+        return $read;
+
+    }
+
+    public function read_desEn_mealbyEid($id){
+
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+        $query=$pdo->prepare("SELECT * FROM description_en JOIN meal ON description_en.EN_id = meal.EN_id JOIN catalog ON meal.Cid = catalog.Cid  WHERE meal.Mid ='$id';");
+        $query->execute();
+
+        $read=$query->fetch(PDO::FETCH_ASSOC);
+        return $read;
+    }
+
+    public function read_desEn_dessertbyEid($id){
+
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+        $query=$pdo->prepare("SELECT * FROM description_en JOIN dessert ON description_en.EN_id = dessert.EN_id JOIN catalog ON dessert.Cid = catalog.Cid  WHERE dessert.Did = '$id';");
+        $query->execute();
+
+        $read=$query->fetch(PDO::FETCH_ASSOC);
+        return $read;
+    }
 //-----------------------------------------------description_my table-----------------------
 
 public function insert_desMY($instructions,$ingredient,$pre_time,$cook_time,$photo){
@@ -482,16 +529,49 @@ try{
 
     }
 
-    public function read_desMy(){
+    public function read_desMy_mealbyCid($id){
         $DBC=new DBC();
         $pdo=$DBC->Connect();
 
-        $query=$pdo->prepare("Select * from `description_my`;");
+        $query=$pdo->prepare("SELECT * FROM description_my JOIN meal ON description_my.MY_id = meal.MY_id JOIN catalog ON meal.Cid = catalog.Cid WHERE catalog.Cid = '$id';");
         $query->execute();
 
-        $read=$query->fetchAll(PDO::FETCH_ASSOC);
+        $read=$query->fetchAll(PDO::FETCH_OBJ);
         return $read;
 
+    }
+
+    public function read_desMy_dessertbyCid($id){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $query=$pdo->prepare("SELECT * FROM description_my JOIN dessert ON description_my.MY_id = dessert.MY_id JOIN catalog ON dessert.Cid = catalog.Cid WHERE catalog.Cid = '$id';");
+        $query->execute();
+
+        $read=$query->fetchAll(PDO::FETCH_OBJ);
+        return $read;
+
+    }
+    public function read_desmy_mealbyeid($id){
+
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+        $query=$pdo->prepare("SELECT * FROM description_my JOIN meal ON description_my.MY_id = meal.MY_id JOIN catalog ON meal.Cid = catalog.Cid  WHERE meal.EN_id = '$id';");
+        $query->execute();
+
+        $read=$query->fetch(PDO::FETCH_ASSOC);
+        return $read;
+    }
+
+    public function read_desmy_dessertbyeid($id){
+
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+        $query=$pdo->prepare("SELECT * FROM description_my JOIN dessert ON description_my.MY_id = dessert.MY_id JOIN catalog ON dessert.Cid = catalog.Cid  WHERE dessert.EN_id = '$id';");
+        $query->execute();
+
+        $read=$query->fetch(PDO::FETCH_ASSOC);
+        return $read;
     }
 
     public function lastIDMy() {  
@@ -550,7 +630,7 @@ try{
         $DBC=new DBC();
         $pdo=$DBC->Connect();
 
-        $random=$pdo->prepare("SELECT * FROM description_my ORDER BY RAND() LIMIT 6;");
+        $random=$pdo->prepare("SELECT * FROM description_my,meal where description_my.MY_id=meal.MY_id  ORDER BY RAND() LIMIT 2;");
         $random->execute();
 
         $random_my=$random->fetchAll(PDO::FETCH_OBJ);
@@ -558,15 +638,26 @@ try{
     }
 
 //--------------------------------------------user table-----------------------------------
-    public function read_user($email){
+    public function read_userwithemail($email){
         $DBC=new DBC();
     $pdo=$DBC->Connect();
         $read_user=$pdo->prepare("Select * from `user` where email='$email';");
         $read_user->execute();
         
+        $read=$read_user->fetch(PDO::FETCH_ASSOC);
+        return $read;
+    }
+
+    public function read_user(){
+        $DBC=new DBC();
+    $pdo=$DBC->Connect();
+        $read_user=$pdo->prepare("Select * from `user`;");
+        $read_user->execute();
+        
         $read=$read_user->fetchAll(PDO::FETCH_OBJ);
         return $read;
     }
+
 
     public function insert_user($name,$email,$pwd){
         $DBC=new DBC();
