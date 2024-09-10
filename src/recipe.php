@@ -3,7 +3,7 @@ require "database_connection.php";
 $CRUD=new CRUD();
 $read_catalog=$CRUD->readCatalog();
 
-
+$uid=$_GET['uid'];
 $type=$_GET['type'];
 $cid=$_GET['cid'];
 
@@ -37,7 +37,7 @@ else{
             <!-- Logo and Toggler Button -->
             <div class="d-flex align-items-center me-4">
                 <a class="navbar-brand" href="index.php">
-                    <img src="logo.png" alt="Logo" style="height: 30px; margin-right: 10px;">
+                <img src="../src/assets/logo.png" alt="Logo" style="height: 40px; margin-right: 10px; width:40px;margin-top:0;">
                 </a>
                 <!-- Toggler button to keep close to the logo -->
                 <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +52,7 @@ else{
                 <div class="button-switch-container">
                 <select name="language" id="languageSelect" class="language" aria-label="Select language" title="Select language between English and Myanmar" 
                     style="border: 1px solid #ced4da; border-radius: 20px; padding: 5px 10px; font-size: 16px; margin-right: 10px;" onchange="this.form.submit();">
+                    <!-- <input type="hidden" name="uid" value="<?php $uid; ?>"> -->
                     <option value="en" <?php if (isset($_POST['language']) && $_POST['language'] === 'en') echo 'selected'; ?> selected>EN</option>  
                 <option value="my" <?php if (isset($_POST['language']) && $_POST['language'] === 'my') echo 'selected'; ?>>MY</option>  
            </select>
@@ -99,7 +100,15 @@ else{
                 <a class="nav-link me-5" href="#">
                     <img src="../src/assets/images/moon_4139162.png" alt=""  style="width: 30px; height: 30px;" id="icon">
                 </a>
-                <a class="nav-link " href="sign.php">Sign In</a>
+                <!-- <a class="nav-link " href="sign.php">Sign In</a> -->
+                <?php 
+                    if($uid === '0'){
+                         echo '<a class="nav-link" href="sign.php?uid=<?php echo $uid;?>">Sign In</a>';
+                    } 
+                    else {
+                    echo '<a class="nav-link" href="userprofile.php?uid=<?php echo $uid;?>">Profile</a>';
+                    }
+                ?>
             </div>
 
             <!-- Navbar links and action items -->
@@ -119,7 +128,7 @@ else{
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="recipe.html" role="button" aria-expanded="false">Meal</a>
                         <ul class="dropdown-menu">
                         <?php foreach($read_catalog as $c):  ?>
-                            <li><a class="dropdown-item" href="recipe.php?type=meal&cid=<?php echo $c->Cid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
+                            <li><a class="dropdown-item" href="recipe.php?type=meal&cid=<?php echo $c->Cid; ?>&uid=<?php echo $uid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
                             <!-- <li><a class="dropdown-item" href="recipe.php">Chicken</a></li>
                             <li><a class="dropdown-item" href="recipe.php">Fish</a></li>
                             <li><a class="dropdown-item" href="recipe.php">Pork</a></li>
@@ -132,7 +141,7 @@ else{
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="recipe.html" role="button" aria-expanded="false">Dessert</a>
                         <ul class="dropdown-menu">
                         <?php foreach($read_catalog as $c):  ?>
-                            <li><a class="dropdown-item"  href="recipe.php?type=dessert&cid=<?php echo $c->Cid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
+                            <li><a class="dropdown-item"  href="recipe.php?type=dessert&cid=<?php echo $c->Cid; ?>&uid=<?php echo $uid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
                             <!-- <li><a class="dropdown-item"  href="recipe.php">Fish</a></li> -->
                             <?php endforeach; ?>
                         </ul>
@@ -163,7 +172,7 @@ else{
               foreach($read as $e): ?>
                 <div class="col-md-4 col-sm-6 " style="margin-bottom: 100px;">
                     <div class="border-des position-relative p-4" >
-                        <a href="recipeshow.php?eid=<?php echo $e->EN_id;?>&type=<?php echo $type?>" style="text-decoration: none;" class="recipe-text">
+                        <a href="recipeshow.php?eid=<?php echo $e->EN_id;?>&type=<?php echo $type?>&uid=<?php echo $uid; ?>" style="text-decoration: none;" class="recipe-text">
                             <div class="position-absolute top-0 start-50 translate-middle ">
                             <img src="data:image/png;base64,<?php echo base64_encode($e->photo) ?>" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;">
                             <!-- <img src="../src/assets/chicken-removebg-preview.png" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;"> -->
@@ -172,6 +181,7 @@ else{
                                 <h3 style="color: #B88A44;"><?php  echo htmlspecialchars($e->name)  ?></h3>
                                 <p style="text-align: justify;">Let's try the best of Myanmar chicken curry. I hope you will enjoy. Let's try the best of Myanmar chicken curry. I hope you will enjoy.</p>
                             </div>
+                            </a>
                             <div class="mt-5 d-flex justify-content-around px-3" >
                                 <div class="text-center">
                                     <div class="d-flex align-items-center justify-content-center me-2" >
@@ -190,10 +200,49 @@ else{
                                 </div>
                                 
                                 <div class="text-center"> 
-                                    <i class="fa-regular fa-bookmark fa-2x mt-2 bookmark" id="bookmark-icon"></i>
+                                <form action="" method="post">
+                                <input type="hidden" name="uid" value="<?php echo htmlspecialchars($uid); ?>">  
+    <?php if ($e->Mid): ?>  
+        <input type="hidden" name="mid" value="<?php echo htmlspecialchars($e->Mid); ?>">  
+    <?php else: ?>  
+        <input type="hidden" name="did" value="<?php echo htmlspecialchars($e->Did); ?>">  
+    <?php endif; ?>  
+    <button type="submit" name="favourite">   
+        <i class="fa-regular fa-bookmark fa-2x mt-2 bookmark" id="bookmark-icon"></i>  
+    </button>  </form>
+                                    <?php 
+            
+           if (isset($_POST['favourite'])) {  
+               $uid = $_POST['uid'];  
+               $mid = isset($_POST['mid']) ? $_POST['mid'] : null; // Use null if mid is not set  
+               $did = isset($_POST['did']) ? $_POST['did'] : '0'; // Default '0' if did is not set  
+           
+               if ($uid === '0') {  
+                   echo "<script>  
+                           alert('Please Create Account!');  
+                           window.location.href = 'index.php'; // Fixed missing quotes  
+                         </script>";  
+               } else {  
+                   if ($did === '0') {  
+                       $review = $CRUD->insert_favouritemid($uid, $mid);  
+                       echo "<script>  
+                               alert('Favourite added successfully.');  
+                               window.location.href = 'index.php'; // Fixed missing quotes  
+                             </script>";  
+                   } else {  
+                       $review = $CRUD->insert_favouritedid($uid, $did);  
+                       echo "<script>  
+                               alert('Favourite added successfully.');  
+                               window.location.href = 'index.php'; // Fixed missing quotes  
+                             </script>";  
+                   }  
+               }  
+           }  
+            
+            ?>
                                 </div>                                
                             </div>
-                        </a>
+                        
                     </div>
                 </div>
                 <?php endforeach; ?>  
@@ -248,7 +297,7 @@ else{
             <div class="row">
                 <div class="col-lg-6 mb-5">
                     <div class="d-flex align-items-center mb-2">
-                            <img src="logo.png" alt="Logo" style="height: 30px; margin-right: 10px;">
+                    <img src="../src/assets/logo.png" alt="Logo" style="height: 40px; margin-right: 10px;margin-left:20px; width:40px;">
                             <h2 style="font-size: 50px;color: #B88A44;">Heritaste</h2>
                     </div>
                     <div class="w-75">

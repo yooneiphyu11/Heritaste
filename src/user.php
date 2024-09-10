@@ -1,3 +1,9 @@
+<?php 
+require "database_connection.php";
+$CRUD=new CRUD();
+$user_count=$CRUD->user_count();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -64,7 +70,7 @@
                     <div class="status">
                         <div class="info">
                             <h3>Total </h3>
-                            <h1>50</h1>
+                            <h1><?php echo htmlspecialchars($user_count)?></h1>
                         </div>
                         <div class="progresss">
                             <img src="images/all_5579233.png" alt="">
@@ -76,21 +82,30 @@
 
             <!-- Recent Orders Table -->
             <div class="recent-orders">
-                <h2 style="color:#2b7067;">Uers Details</h2>
+                <h2 style="color:#2b7067;">Recent Uers</h2>
                 <table>
                         <tr>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Time</th>
                             <th>Favourite</th>
                             <th>Review</th>
                         </tr>
+                        <?php $detail=$CRUD->user_detail();
+                        foreach($detail as $e): ?>
                         <tr>
+                            <td><?php echo $e['name'] ?></td>
+                            <td><?php echo $e['email'] ?></td>
+                            <td><?php echo $e['favourite_count'] ?></td>
+                            <td><?php echo $e['review_count'] ?></td>      
+                        </tr>
+                        <?php endforeach; ?>
+
+                        <!-- <tr>
                             <td>Yoon</td>
                             <td>yoon@gmail.com</td>
                             <td>2023/8/24</td>
                             <td>5</td>
-                            <td>2</td>      
+                            <td>2</td>  
                         </tr>
                         <tr>
                             <td>Yoon</td>
@@ -105,14 +120,7 @@
                             <td>2023/8/24</td>
                             <td>5</td>
                             <td>2</td>  
-                        </tr>
-                        <tr>
-                            <td>Yoon</td>
-                            <td>yoon@gmail.com</td>
-                            <td>2023/8/24</td>
-                            <td>5</td>
-                            <td>2</td>  
-                        </tr>
+                        </tr> -->
                 </table>
             </div>
             <!-- End of Recent Orders -->
@@ -148,7 +156,22 @@
                     </span>
                 </div>
 
+                <?php $review=$CRUD->read_review();
+                foreach($review as $v):?>
                 <div class="notification">
+                    <div class="content">
+                        <div class="info">
+                            <h3><?php echo $v['name'] ?></h3>
+                            <small class="text_muted">
+                            <?php echo $v['review'] ?>
+                            </small>
+                        </div>
+                       
+                    </div>
+                </div>
+                <?php  endforeach; ?>
+
+                <!-- <div class="notification">
                     <div class="content">
                         <div class="info">
                             <h3>Yoon</h3>
@@ -202,21 +225,7 @@
                             <h3>12:30</h3>
                         </div>
                     </div>
-                </div>
-
-                <div class="notification">
-                    <div class="content">
-                        <div class="info">
-                            <h3>Yoon</h3>
-                            <small class="text_muted">
-                                Your recipes are so good for busy people.
-                            </small>
-                        </div>
-                        <div>
-                            <h3>12:30</h3>
-                        </div>
-                    </div>
-                </div>
+                </div> -->
 
 
     </div>

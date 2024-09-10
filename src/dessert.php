@@ -4,6 +4,7 @@
     $catalog = new CRUD();
     $choose = $catalog->readCatalog();
     // var_dump($choose);
+    $type=$_GET['type'];
     ?>
 
     <!DOCTYPE html>
@@ -83,11 +84,11 @@
                     <label for="meal" class="block text-sm font-medium text-gray-700">Select a Dessert:</label>
                     <select id="meal" name="Cid" class="mt-1 block w-full rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 " style="height:50px">
                         <?php foreach($choose as $c): ?>
-                            <option value="<?php echo $c->Cid; ?>"><?php echo htmlspecialchars($c->cname); ?></option>
+                            <option value="<?php echo $c->Cid; ?>&type=<?php echo $type ?>"><?php echo htmlspecialchars($c->cname); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
-                <button type="submit" class="mt-3 w-full text-white py-2 rounded-md transition" name="submit" value="meal"
+                <button type="submit" class="mt-3 w-full text-white py-2 rounded-md transition" name="submit" value="<?php echo $type; ?>"
                 style="background-color:#2b7067;color:#B88A44">Submit</button>
             </form>
         </div>

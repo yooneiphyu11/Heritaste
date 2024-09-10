@@ -71,6 +71,7 @@ echo "<script type='text/javascript'>alert('$msg');</script>";
     <div class="analyse">
         <div class="sales">
             <form action="insert_My.php" method="post" enctype="multipart/form-data" style="width: 100%; max-width: 100%;">
+
             <input type='hidden' value='<?php echo $Cid; ?>' name='Cid'>
             <input type='hidden' value='<?php echo $type; ?>' name='type'>
             <input type='hidden' value='<?php echo $ename; ?>' name='ename'>
@@ -105,7 +106,7 @@ echo "<script type='text/javascript'>alert('$msg');</script>";
                 <input type="file" name="photo" id="photo" accept="image/*" required style="width: 100%;">
             </div>
 
-            <input type="submit" value="Submit Recipe" 
+            <input type="submit" value="Add Recipe" 
             style="width: 60%; background-color: var(--color-primary);
             margin-left:20%;border-radius: var(--border-radius-1); color: white;">
             </form>

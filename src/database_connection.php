@@ -332,6 +332,36 @@ public function delete_catalog($cid){
 
 //-----------------------------------------------description_en table-----------------------
 
+public function read_desEn_descmeal(){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $read_descEn=$pdo->prepare("SELECT * 
+FROM catalog 
+JOIN meal ON catalog.Cid = meal.Cid 
+JOIN description_en ON meal.EN_id = description_en.EN_id 
+ORDER BY description_en.EN_id DESC 
+LIMIT 3;");
+$read_descEn->execute();
+$read=$read_descEn->fetchAll(PDO::FETCH_ASSOC);
+return $read;
+}
+
+public function read_desEn_descdessert(){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $read_desEn=$pdo->prepare("SELECT * 
+FROM catalog 
+JOIN dessert ON catalog.Cid = dessert.Cid 
+JOIN description_en ON dessert.EN_id = description_en.EN_id 
+ORDER BY description_en.EN_id DESC 
+LIMIT 3;");
+$read_desEn->execute();
+$read=$read_desEn->fetchAll(PDO::FETCH_ASSOC);
+return $read;
+}
+
 public function insert_desEN($instructions,$ingredient,$pre_time,$cook_time,$photo){
     $DBC=new DBC();
     $pdo=$DBC->Connect();
@@ -369,18 +399,29 @@ try{
 
     }
 
-    public function read_desEn(){
+    public function read_desEnmeal(){
         $DBC=new DBC();
         $pdo=$DBC->Connect();
 
-        $query=$pdo->prepare("Select * from `description_en`;");
+        $query=$pdo->prepare("Select * from description_en,meal where description_en.EN_id=meal.EN_id;");
         $query->execute();
 
-        $read=$query->fetchAll(PDO::FETCH_ASSOC);
+        $read=$query->fetchAll(PDO::FETCH_OBJ);
         return $read;
 
     }
 
+    public function read_desEndessert(){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $query=$pdo->prepare("Select * from description_en,dessert where description_en.EN_id=dessert.EN_id;");
+        $query->execute();
+
+        $read=$query->fetchAll(PDO::FETCH_OBJ);
+        return $read;
+
+    }
    
     public function lastIDEn() {  
         $DBC = new DBC();  
@@ -438,7 +479,7 @@ try{
         $DBC=new DBC();
         $pdo=$DBC->Connect();
 
-        $random=$pdo->prepare("SELECT * FROM description_en,meal where description_en.EN_id=meal.EN_id  ORDER BY RAND() LIMIT 2;");
+        $random=$pdo->prepare("SELECT * FROM description_en,meal where description_en.EN_id=meal.EN_id  ORDER BY RAND() LIMIT 6;");
         $random->execute();
 
         $random_en=$random->fetchAll(PDO::FETCH_OBJ);
@@ -491,6 +532,31 @@ try{
         return $read;
     }
 //-----------------------------------------------description_my table-----------------------
+
+
+public function read_desMymeal(){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $query=$pdo->prepare("Select * from description_my,meal where description_my.MY_id=meal.MY_id;");
+    $query->execute();
+
+    $read=$query->fetchAll(PDO::FETCH_OBJ);
+    return $read;
+
+}
+
+public function read_desMydessert(){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $query=$pdo->prepare("Select * from description_my,dessert where description_my.MY_id=dessert.MY_id;");
+    $query->execute();
+
+    $read=$query->fetchAll(PDO::FETCH_OBJ);
+    return $read;
+
+}
 
 public function insert_desMY($instructions,$ingredient,$pre_time,$cook_time,$photo){
     $DBC=new DBC();
@@ -630,7 +696,7 @@ try{
         $DBC=new DBC();
         $pdo=$DBC->Connect();
 
-        $random=$pdo->prepare("SELECT * FROM description_my,meal where description_my.MY_id=meal.MY_id  ORDER BY RAND() LIMIT 2;");
+        $random=$pdo->prepare("SELECT * FROM description_my,meal where description_my.MY_id=meal.MY_id  ORDER BY RAND() LIMIT 6;");
         $random->execute();
 
         $random_my=$random->fetchAll(PDO::FETCH_OBJ);
@@ -638,6 +704,21 @@ try{
     }
 
 //--------------------------------------------user table-----------------------------------
+
+public function user_detail(){
+    $DBC=new DBC();
+    $pdo=$DBC->Connect();
+
+    $user_detail=$pdo->prepare("SELECT user.*, 
+       (SELECT COUNT(favourite.Fid) FROM favourite WHERE favourite.Uid = user.Uid) AS favourite_count, 
+       (SELECT COUNT(review.review) FROM review WHERE review.Uid = user.Uid) AS review_count
+FROM user
+ORDER BY user.Uid DESC limit 5;
+");
+    $user_detail->execute();
+    $read=$user_detail->fetchAll(PDO::FETCH_ASSOC);
+    return $read;
+}
     public function read_userwithemail($email){
         $DBC=new DBC();
     $pdo=$DBC->Connect();
@@ -719,6 +800,16 @@ try{
        return $count['user_count'];
     }
 
+    public function user($id){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $user=$pdo->prepare("SELECT name,email from user where Uid='$id';");
+        $user->execute();
+        $read=$user->fetchAll(PDO::FETCH_ASSOC);
+        return $read;
+    }
+
 //------------------------------------------------------------review table-------------------------------------------
 
 
@@ -739,10 +830,10 @@ try{
         $DBC=new DBC();
         $pdo=$DBC->Connect();
 
-        $read_review=$pdo->prepare("SELECT * from review;");
+        $read_review=$pdo->prepare("SELECT review.review, user.name FROM review JOIN user ON review.Uid = user.Uid order by RAND() limit 6;");
         $read_review->execute();
 
-        $read=$read_review->fetchAll(PDO::FETCH_OBJ);
+        $read=$read_review->fetchAll(PDO::FETCH_ASSOC);
         return $read;
     }
 
@@ -814,6 +905,21 @@ try{
         return $count['favourite_count'];
     }
 
+    public function insert_favouritemid($uid,$mid){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $insert_favourite=$pdo->prepare("INSERT into favourite(Uid,Mid) values('$uid','$mid'); ");
+        $insert_favourite->execute();
+    }
+
+    public function insert_favouritedid($uid,$did){
+        $DBC=new DBC();
+        $pdo=$DBC->Connect();
+
+        $insert_favourite=$pdo->prepare("INSERT into favourite(Uid,Did) values('$uid','$did'); ");
+        $insert_favourite->execute();
+    }
 
 
 

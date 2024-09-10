@@ -7,7 +7,7 @@
         <!-- Material Icons -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="../src/test.css">
+        <link rel="stylesheet" href="../src/upload.css">
         <script src="https://cdn.tailwindcss.com"></script>   
     </head>
 <body>
@@ -71,8 +71,8 @@
         <div class="sales">
                     <h1 class="text-3xl font-bold mb-6">Select Meal or Dessert</h1>
                     <div class="status space-x-4" style="display: flex;">
-                        <a href="meal.php" class=" text-white px-4 py-2 rounded hover:bg-blue-600 transition">Meal</a>
-                        <a href="dessert.php" class="text-white px-4 py-2 rounded hover:bg-green-600 transition">Dessert</a>
+                        <a href="meal.php?type=meal" class=" text-white px-4 py-2 rounded hover:bg-blue-600 transition">Meal</a>
+                        <a href="dessert.php?type=dessert" class="text-white px-4 py-2 rounded hover:bg-green-600 transition">Dessert</a>
                     </div>
         </div>
     </div>

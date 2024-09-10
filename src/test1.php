@@ -4,11 +4,13 @@ require_once "database_connection.php";
 
 
 
-if($_SERVER['REQUEST_METHOD']==="POST"){
+
+  if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add'])) {  
     
     $name=$_POST['name'];
     $Cid=$_POST['Cid'];
     $type=$_POST['type'];
+    
     $instructions=$_POST['instructions'];
     $ingredient=$_POST['ingredient'];
     $pre_time=(int)$_POST['pre_time'];

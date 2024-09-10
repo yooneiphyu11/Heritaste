@@ -1,3 +1,12 @@
+<?php 
+require "database_connection.php";
+$CRUD=new CRUD();
+$meal_count=$CRUD->count_meal();
+$dessert_count=$CRUD->count_dessert();
+$total=$meal_count+$dessert_count;
+$read_meal=$CRUD->read_desEn_descmeal();
+$read_dessert=$CRUD->read_desEn_descdessert();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +25,7 @@
         <aside>
             <div class="toggle">
                 <div class="logo">
-                    <img src="images/logo.png">
+                <img src="../src/assets/logo.png" alt=""  style="width: 30px; height: 30px;" id="icon">
                     <h2 style="color:#B88A44;">Heritaste</h2>
                 </div>
                 <div class="close" id="close-btn">
@@ -58,13 +67,14 @@
         <!-- Main Content -->
         <main>
             <h1 style="color: #2b7067;">Recipe</h1>
+            <?php  ?>
             <!-- Analyses -->
             <div class="analyse">
                 <div class="sales">
                     <div class="status">
                         <div class="info">
                             <h3>Total </h3>
-                            <h1>50</h1>
+                            <h1><?php echo htmlspecialchars($total) ?></h1>
                         </div>
                         <div class="progresss">
                             <img src="../src/assets/images/all_5579233.png" alt="">
@@ -75,7 +85,7 @@
                     <div class="status">
                         <div class="info">
                             <h3>Meal</h3>
-                            <h1>25</h1>
+                            <h1><?php echo htmlspecialchars($meal_count) ?></h1>
                         </div>
                         <div class="progresss">
                             <img src="../src/assets/images/iftar_9989244.png" alt="">
@@ -86,7 +96,7 @@
                     <div class="status">
                         <div class="info">
                             <h3>Dessert</h3>
-                            <h1>25</h1>
+                            <h1><?php echo htmlspecialchars($dessert_count) ?></h1>
                         </div>
                         <div class="progresss">
                             <img src="../src/assets/images/frozen-yogurt_10143117.png" alt="">
@@ -104,10 +114,28 @@
                             <th>Photo</th>
                             <th>Title</th>
                             <th>Catagory</th>
-                            <th>Type</th>
-                            <th>Time</th>
+                            <th>Type</th>    
                         </tr>
+
+                        <?php foreach($read_meal as $e): ?>
+                        <tr>                            
+                            <td><img src="data:image/png;base64,<?php echo base64_encode($e['photo']) ?>" alt="" style="height: 50px;width: 50px;margin-left: 30px;"></td>
+                            <td><?php  echo htmlspecialchars($e['name']) ?></td>
+                            <td>Meal</td>
+                            <td><?php echo htmlspecialchars($e['cname']) ?></td>                            
+                        </tr>
+                        <?php endforeach;?>
+
+                        <?php foreach($read_dessert as $e): ?>
                         <tr>
+                        <td><img src="data:image/png;base64,<?php echo base64_encode($e['photo']) ?>" alt="" style="height: 50px;width: 50px;margin-left: 30px;"></td>
+                            <td><?php  echo htmlspecialchars($e['name']) ?></td>
+                            <td>Dessert</td>
+                            <td><?php echo htmlspecialchars($e['cname']) ?></td>  
+                        </tr>
+                        <?php endforeach; ?>
+
+                        <!-- <tr>
                             <td><img src="images/fruit_13143379.png" alt="" style="height: 50px;width: 50px;margin-left: 30px;"></td>
                             <td>Chicken Curry</td>
                             <td>Meal</td>
@@ -120,21 +148,7 @@
                             <td>Meal</td>
                             <td>Chicken</td>
                             <td>2023/8/24</td>
-                        </tr>
-                        <tr>
-                            <td><img src="images/fruit_13143379.png" alt="" style="height: 50px;width: 50px;margin-left: 30px;"></td>
-                            <td>Chicken Curry</td>
-                            <td>Meal</td>
-                            <td>Chicken</td>
-                            <td>2023/8/24</td>
-                        </tr>
-                        <tr>
-                            <td><img src="images/fruit_13143379.png" alt="" style="height: 50px;width: 50px;margin-left: 30px;"></td>
-                            <td>Chicken Curry</td>
-                            <td>Meal</td>
-                            <td>Chicken</td>
-                            <td>2023/8/24</td>
-                        </tr>
+                        </tr> -->
                 </table>
             </div>
             <!-- End of Recent Orders -->

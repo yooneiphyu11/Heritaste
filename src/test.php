@@ -1,14 +1,14 @@
 <?php  
 
 // Check if the meal is set  
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && $_POST['submit']=='meal') {  
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit']) && $_POST['submit']==='meal') {  
       $Cid=$_POST['Cid'];
-      $type="meal";
+      $type='meal';
     // echo "Selected Meal: " . htmlspecialchars($meal) . "<br>"; // Display the selected meal  
 } 
-elseif($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['submit']) && $_POST['submit']=='dessert'){
+elseif($_SERVER["REQUEST_METHOD"]=="POST" && isset($_POST['submit']) && $_POST['submit']==='dessert'){
     $Cid=$_POST['Cid'];
-    $type="dessert";
+    $type='dessert';
 }
 else {  
     echo "No meal selected.";  
@@ -79,6 +79,7 @@ else {
     <div class="analyse">
         <div class="sales">
             <form action="test1.php" method="post" enctype="multipart/form-data" style="width: 100%; max-width: 100%;">
+                
             <input type='hidden' value='<?php echo $Cid; ?>' name='Cid'>
             <input type='hidden' value='<?php echo $type; ?>' name='type'>
 
@@ -112,7 +113,7 @@ else {
                 <input type="file" name="photo" id="photo" accept="image/*" required style="width: 100%;">
             </div>
 
-            <input type="submit" value="Add Recipe" 
+            <input type="submit" value="Add Recipe" name="add" 
             style="width: 60%; background-color: var(--color-primary);color:#B88A44;
             margin-left:20%;border-radius: var(--border-radius-1); color: white;">
             </form>

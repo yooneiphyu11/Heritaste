@@ -1,7 +1,8 @@
 <?php 
 require "database_connection.php";
 $CRUD=new CRUD();
- 
+ $uid=$_GET['uid'];
+ $user=$CRUD->user($uid);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -93,7 +94,7 @@ $CRUD=new CRUD();
                 <a class="nav-link me-5" href="#">
                     <img src="../src/assets/images/moon_4139162.png" alt=""  style="width: 30px; height: 30px;" id="icon">
                 </a>
-                <a class="nav-link " href="sign.php">Sign In</a>
+                <a class="nav-link " href="sign.php">Sign Out</a>
             </div>
 
             <!-- Navbar links and action items -->
@@ -138,15 +139,18 @@ $CRUD=new CRUD();
     <section>
         <div class="container-lg py-4 ">
         <h1 class="mt-5 text-center">User Profile</h1>
-        <form class="pretty-form mt-5" action="" method="post">
+        <form class="pretty-form mt-5" >
+            <?php  ?>
             <div class="form-group">
             <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>">
+        
     </div>
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>">
     </div>
+    <?php  ?>
 </form>
 
             <div class="row" style="margin-top: 100px;">

@@ -17,7 +17,7 @@
             <!-- Logo and Toggler Button -->
             <div class="d-flex align-items-center me-4">
                 <a class="navbar-brand" href="index.php">
-                    <img src="logo.png" alt="Logo" style="height: 30px; margin-right: 10px;">
+                <img src="../src/assets/logo.png" alt="Logo" style="height: 40px; margin-right: 10px; width:40px;margin-top:0;">
                 </a>
                 <!-- Toggler button to keep close to the logo -->
                 <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -154,7 +154,7 @@
             <div class="row">
                 <div class="col-lg-6 mb-5">
                     <div class="d-flex align-items-center mb-2">
-                            <img src="logo.png" alt="Logo" style="height: 30px; margin-right: 10px;">
+                    <img src="../src/assets/logo.png" alt="Logo" style="height: 40px; margin-right: 10px; width:40px;margin-top:0;">
                             <h2 style="font-size: 50px;color: #B88A44;">Heritaste</h2>
                     </div>
                     <div class="w-75">

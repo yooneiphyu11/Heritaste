@@ -1,3 +1,19 @@
+<?php 
+require "database_connection.php";
+$eid=isset($_GET['eid'])?$_GET['eid'] :null;
+$mid=isset($_GET['mid'])?$_GET['mid'] :null;
+
+$CRUD =new CRUD();
+if(isset($eid) && !empty($eid)){
+    $edit=$CRUD->edit_desEn($eid);
+}
+elseif(isset($mid) && !empty($mid)){
+    $edit=$CRUD->edit_desMy($mid);
+}
+else{
+    echo "No ID Valid.";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,41 +78,43 @@
     <!-- Analysis Section -->
     <div class="analyse">
         <div class="sales">
-            <form action="test1.php" method="post" enctype="multipart/form-data" style="width: 100%; max-width: 100%;">
-            <input type='hidden' value='<?php echo $Cid; ?>' name='Cid'>
-            <input type='hidden' value='<?php echo $type; ?>' name='type'>
+            <form action="" method="post" enctype="multipart/form-data" style="width: 100%; max-width: 100%;">
+                <?php  foreach($edit as $e):?>
 
-            <div class="form-group">
+            <!-- <input type='hidden' value='<?php echo $Cid; ?>' name='Cid'>
+            <input type='hidden' value='<?php echo $type; ?>' name='type'> -->
+
+            <!-- <div class="form-group">
                 <label for="name">Name:</label>
                 <textarea name="name" id="name" required></textarea>
-            </div>
+            </div> -->
     
             <div class="form-group">
                 <label for="instructions">Instructions:</label>
-                <textarea name="instructions" id="instructions" required style="width: 100%;height: 200px;"></textarea>
+                <textarea name="instructions" id="instructions" required style="width: 100%;height: 200px;"><?php echo $e->instructions ?></textarea>
             </div>
 
             <div class="form-group">
                 <label for="ingredient">Ingredients:</label>
-                <textarea name="ingredient" id="ingredient" required style="width: 100%;"></textarea>
+                <textarea name="ingredient" id="ingredient" required style="width: 100%;"><?php echo $e->instructions ?></textarea>
             </div>
 
             <div class="form-group">
                 <label for="pre_time">Preparation Time (minutes):</label>
-                <input type="number" name="pre_time" id="pre_time" required style="width: 100%;">
+                <input type="text" name="pre_time" id="pre_time" required style="width: 100%;" value="<?php echo $e->pre_time ?>">
             </div>
 
             <div class="form-group">
                 <label for="cook_time">Cooking Time (minutes):</label>
-                <input type="number" name="cook_time" id="cook_time" required style="width: 100%;">
+                <input type="text" name="cook_time" id="cook_time" required style="width: 100%;" value="<?php echo $e->cook_time ?>">
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="photo">Upload Photo:</label>
                 <input type="file" name="photo" id="photo" accept="image/*" required style="width: 100%;">
-            </div>
-
-            <input type="submit" value="Edit" 
+            </div> -->
+                    <?php endforeach; ?>
+            <input type="submit" value="Edit" name="edit"
             style="width: 60%; background-color: var(--color-primary);
             margin-left:20%;border-radius: var(--border-radius-1); color: white;">
             </form>
@@ -166,3 +184,34 @@
 </body>
 
 </html>
+
+<?php 
+
+if(isset($_POST['edit'])){
+    $ins=$_POST['instructions'];
+    $ing=$_POST['ingredient'];
+    $pt=$_POST['pre_time'];
+    $ct=$_POST['cook_time'];
+
+    if(isset($eid) && !empty($eid)){
+        $edit=$CRUD->update_desEn($eid,$ins,$ing,$pt,$ct);
+        echo "<script>alert('Update Successfully');
+        window.location.href='update.php';
+        </script>";
+    }
+    elseif(isset($mid) && !empty($mid)){
+        $edit=$CRUD->update_desMy($mid,$ins,$ing,$pt,$ct);
+        echo "<script>alert('Update Successfully');
+        window.location.href='update.php';
+        </script>";
+
+    //     echo "<script>alert('Invalid Login!Please check Password');
+    //     window.location.href = 'sign.php'; 
+    //    </script>";  
+        
+    }
+    else{
+        echo "ID type Not Match.";
+    }
+    
+}

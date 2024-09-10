@@ -10,6 +10,14 @@ $read_user=$CRUD->read_user();
 $lang='en';
 $random=$CRUD->random_en();
 
+$user=$CRUD->read_user();
+if(isset($_GET['uid'])){
+    $uid=$_GET['uid'];
+}
+else{
+    $uid='0';
+}
+$review=$CRUD->read_review();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +38,7 @@ $random=$CRUD->random_en();
             <!-- Logo and Toggler Button -->
             <div class="d-flex align-items-center me-4">
                 <a class="navbar-brand" href="index.php">
-                    <img src="logo.png" alt="Logo" style="height: 30px; margin-right: 10px;">
+                    <img src="../src/assets/logo.png" alt="Logo" style="height: 40px; margin-right: 10px; width:40px;margin-top:0;">
                 </a>
                 <!-- Toggler button to keep close to the logo -->
                 <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,10 +47,10 @@ $random=$CRUD->random_en();
             </div>
 
             <div class="d-flex align-item-center me-5 order-lg-2">
-            <form  action="" method="post"  id="languageForm" class="me-5 mt-1" style="border-radius: 20px;">
+            <form  action="" method="post"  id="languageForm" class="me-5 mt-1" style="border-radius: 20px; background-color: #f8f9fa; padding: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
             <div class="button-switch-container" style="display: flex; align-items: center; justify-content: center;">
                     <select name="language" id="languageSelect" class="language" aria-label="Select language" title="Select language between English and Myanmar" 
-                    style="border: 2px solid #2b7067; border-radius: 15px; padding: 5px 10px; font-size: 16px; margin-right: 10px;" onchange="this.form.submit();">
+                    style="border: 1px solid #ced4da; border-radius: 20px; padding: 5px 10px; font-size: 16px; margin-right: 10px;" onchange="this.form.submit();">
                     <option value="en" <?php if (isset($_POST['language']) && $_POST['language'] === 'en') echo 'selected'; ?> selected>EN</option>  
                 <option value="my" <?php if (isset($_POST['language']) && $_POST['language'] === 'my') echo 'selected'; ?>>MY</option>  
            </select>
@@ -78,7 +86,15 @@ $random=$CRUD->random_en();
                 <a class="nav-link me-5" href="#">
                     <img src="../src/assets/images/moon_4139162.png" alt=""  style="width: 30px; height: 30px;" id="icon">
                 </a>
-                <a class="nav-link " href="sign.php">Sign In</a>
+                <!-- <a class="nav-link " href="sign.php">Sign In</a> -->
+                <?php 
+                    if($uid === '0'){
+                         echo '<a class="nav-link" href="sign.php?uid=<?php echo $uid;?>">Sign In</a>';
+                    } 
+                    else {
+                    echo '<a class="nav-link" href="userprofile.php?uid=<?php echo $uid;?>">Profile</a>';
+                    }
+                ?>
             </div>
 
             <!-- Navbar links and action items -->
@@ -98,7 +114,7 @@ $random=$CRUD->random_en();
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="recipe.php" role="button" aria-expanded="false">Meal</a>
                         <ul class="dropdown-menu">
                             <?php foreach($read_catalog as $c):  ?>
-                            <li><a class="dropdown-item" href="recipe.php?type=meal&cid=<?php echo $c->Cid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
+                            <li><a class="dropdown-item" href="recipe.php?type=meal&cid=<?php echo $c->Cid; ?>&uid=<?php echo $uid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
                              <!-- <li><a class="dropdown-item" href="recipe.php">Fish</a></li>
                             <li><a class="dropdown-item" href="recipe.php">Pork</a></li>
                             <li><a class="dropdown-item" href="recipe.php">Beef</a></li>  -->
@@ -110,7 +126,7 @@ $random=$CRUD->random_en();
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="recipe.html" role="button" aria-expanded="false">Dessert</a>
                         <ul class="dropdown-menu">
                         <?php foreach($read_catalog as $c):  ?>
-                            <li><a class="dropdown-item"  href="recipe.php?type=dessert&cid=<?php echo $c->Cid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
+                            <li><a class="dropdown-item"  href="recipe.php?type=dessert&cid=<?php echo $c->Cid; ?>&uid=<?php echo $uid; ?>"><?php echo htmlspecialchars($c->cname); ?></a></li>
                              <!-- <li><a class="dropdown-item"  href="recipe.php">Fish</a></li> -->
                             <?php endforeach; ?>
                         </ul>
@@ -151,7 +167,15 @@ $random=$CRUD->random_en();
                     <p class="">Dive into the rich and diverse culinary heritage of Myanmar. From aromatic curries 
                     to delightful street food, explore traditional recipes that have been passed down through generations. 
                     </p>
-                    <a href="sign.php" class="btn px-3 mt-3 btn-custom" style="border-color: #2b7067;color: #B88A44;">Explore Recipes</a>
+                    <!-- <a href="sign.php" class="btn px-3 mt-3 btn-custom" style="border-color: #2b7067;color: #B88A44;">Explore Recipes</a> -->
+                     <?php 
+                    if($uid === '0'){
+                         echo '<a href="sign.php?uid=<?php echo $uid; ?>" class="btn px-3 mt-3 btn-custom" style="border-color: #2b7067;color: #B88A44;">Explore Recipes</a>';
+                    } 
+                    else {
+                         echo '<a href="userprofile.php?uid=<?php echo $uid; ?>" class="btn px-3 mt-3 btn-custom" style="border-color: #2b7067;color: #B88A44;">Explore Recipes</a>';
+                    }
+                    ?>
                 </div>                
         </div>
     </section>
@@ -238,7 +262,7 @@ $random=$CRUD->random_en();
             <!-- First Project Card -->
                 <div class="col-md-4 col-sm-6 " style="margin-bottom: 100px;">
                     <div class="border-des position-relative p-4" >
-                        <a href="recipeshow.php?eid=<?php echo $e->EN_id;?>&type=meal" style="text-decoration: none;" class="recipe-text">
+                        <a href="recipeshow.php?eid=<?php echo $e->EN_id;?>&type=meal&uid=<?php echo $uid; ?>" style="text-decoration: none;" class="recipe-text">
                             <div class="position-absolute top-0 start-50 translate-middle ">
                                  <img src="data:image/png;base64,<?php echo base64_encode($e->photo) ?>" alt="profile image" class="img-fluid " style="width: 200px; height: 200px;">
                             </div>
@@ -246,6 +270,7 @@ $random=$CRUD->random_en();
                                 <h3 style="color: #B88A44;"><?php  echo htmlspecialchars($e->name)  ?></h3>
                                 <p style="text-align: justify;">Let's try the best of Myanmar chicken curry. I hope you will enjoy. Let's try the best of Myanmar chicken curry. I hope you will enjoy.</p>
                             </div>
+                            </a>
                             <div class="mt-5 d-flex justify-content-around px-3" >
                                 <div class="text-center">
                                     <div class="d-flex align-items-center justify-content-center me-2" >
@@ -264,10 +289,38 @@ $random=$CRUD->random_en();
                                 </div>
                                 
                                 <div class="text-center"> 
-                                    <i class="fa-regular fa-bookmark fa-2x mt-2 bookmark" id="bookmark-icon"></i>
+                                <form action="" method="post">
+                                        <input type="hidden" name="uid" value="<?php echo $uid; ?>">
+                                    <button type="submit" name="favourite"> <i class="fa-regular fa-bookmark fa-2x mt-2 bookmark" id="bookmark-icon"></i></button> 
+                                    </form>
+                                    <?php 
+            if(isset($_POST['favourite'])){
+                $uid=$_POST['uid'];
+                $mid= $e->Mid;
+                $did='0';
+                     if($uid === '0'){
+                        echo "<script>alert('Please Create Account!');</script>";
+                     }
+                else{
+                        if($did==='0'){
+                            $review=$CRUD->insert_favouritemid($uid,$mid);
+                            echo "<script>alert('Favourite add successfully.');
+                             window.location.href = 'index.php;</script>";
+                        }
+                        else{
+                            $review=$CRUD->insert_favouritedid($uid,$did);
+                            echo "<script>alert('Favourite add successfully.')</script>";
+                        }
+
+                    }
+
+                }
+
+            
+            ?>
                                 </div>                                
                             </div>
-                        </a>
+                       
                      </div>
             </div>
             <?php endforeach; ?>  
@@ -480,131 +533,85 @@ $random=$CRUD->random_en();
         </div>
 
         <div class="review-box mb-4" >
-            <form class="ms-lg-4" method="" action="post">
-                <?php  ?>
+            <form class="ms-lg-4" method="post" action=""> 
                 <div class="row mb-4 w-75 ms-4">
                     <div class="form-container col-6">
-                        <input type="hidden" name="useremail" value="">
-                        <textarea rows="1" class="form-control form-control-lg shadow-sm fs-6 border-1" style="border-color: #B88A44;" placeholder="Anything message you want to leave us"></textarea>
+                        <input type="hidden" name="uid" value="<?php echo $uid; ?>">
+                        <textarea name="message" rows="1" class="form-control form-control-lg shadow-sm fs-6 border-1" style="border-color: #B88A44;" placeholder="Anything message you want to leave us"></textarea>
                     </div>
                     <div class="col-6 ">
-                        <button type="submit" class="btn btn-custom" style="height: 45px;border-color: #2b7067;color: #B88A44;">Send Message</button>
+                        <button name="sendmessage" type="submit" class="btn btn-custom" style="height: 45px;border-color: #2b7067;color: #B88A44;">Send Message</button>
                     </div>
                 </div> 
             </form>
             <?php 
+            if(isset($_POST['sendmessage'])){
+                $uid=$_POST['uid'];
+                $message=$_POST['message'];
+                if($uid === '0'){
+                    echo "<script>alert('Please Create Account!')</script>";
+                }
+                else{
+                    $review=$CRUD->insert_review($uid,$message);
+                    echo "<script>alert('Message sent Successfully.')</script>";
+                }
 
+            }
             ?>
         </div>
        
         <!-- review  1 start -->
         <div class="slider m-auto ">
             <div class="slide-track flex scroll-left">
+            <?php 
+                $review=$CRUD->read_review();
+                foreach($review as $v): ?>
                 <!-- 1 item -->
                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
                         <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon Ei phyu</h5>
+                        <h5 style="color: #B88A44;"><?php echo $v['name'] ?></h5>
                     </div>
-                    <p class="mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
+                    <p class="mb-2 mx-2 p-0 text-just"><?php echo $v['review'] ?>.</p>
                 </div>
+                <?php endforeach;?>
+
                 <!-- 2 item -->
-                <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
+                <!-- <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
                         <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
-                </div>
+                </div> -->
 
-                 <!-- 3 item -->
-                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
-                </div>
+                
 
-                 <!-- 4 item -->
-                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="slide mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
-                </div>
-
-               <!-- 5 item -->
-               <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                <div class=" d-flex mt-2">
-                    <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                    <h5 style="color: #B88A44;">Yoon</h5>
-                </div>
-                <p class="slide mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-            </div>
-
-                <!-- 6 item -->
-                <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="slide mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
+                
 
                  <!-- 1 item -->
+                 <?php 
+                //$review=$CRUD->read_review();
+                foreach($review as $v): ?>
                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
                         <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon Ei phyu</h5>
+                        <h5 style="color: #B88A44;"><?php echo $v['name'] ?></h5>
                     </div>
-                    <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
+                    <p class="mb-2 mx-2 p-0 text-just"><?php echo $v['review'] ?>.</p>
                 </div>
+                <?php endforeach;?>
+
                 <!-- 2 item -->
-                <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
+                <!-- <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
                         <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
                         <h5 style="color: #B88A44;">Yoon</h5>
                     </div>
                     <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
+                </div> -->
 
-                 <!-- 3 item -->
-                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
-
-                 <!-- 4 item -->
-                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="slide mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
-
-                <!-- 5 item -->
-                <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
-
-                <!-- 6 item -->
-                <div class="sliderounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../src/assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
+                 
 
             </div>
         </div>
@@ -612,111 +619,31 @@ $random=$CRUD->random_en();
          <!-- review  2 start -->
          <div class="slider m-auto ">
             <div class="slide-track flex scroll-right">
-                <!-- 1 item -->
+            <?php 
+                // $review=$CRUD->read_review();
+                foreach($review as $v): ?>
                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
                         <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon Ei phyu</h5>
+                        <h5 style="color: #B88A44;"><?php echo $v['name'] ?></h5>
                     </div>
-                    <p class="mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
+                    <p class="mb-2 mx-2 p-0 text-just"><?php echo $v['review'] ?></p>
                 </div>
+                <?php endforeach;?>
+
                 <!-- 2 item -->
+                <?php 
+                // $review=$CRUD->read_review();
+                foreach($review as $v): ?>
                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
                     <div class=" d-flex mt-2">
                         <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
+                        <h5 style="color: #B88A44;"><?php echo $v['name'] ?></h5>
                     </div>
-                    <p class="mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
+                    <p class="mb-2 mx-2 p-0 text-just"><?php echo $v['review'] ?></p>
                 </div>
-
-                 <!-- 3 item -->
-                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
-                </div>
-
-                 <!-- 4 item -->
-                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="slide mb-2 mx-2 p-0 text-just">I've so impressed all my friends with new dishs.</p>
-                </div>
-
-               <!-- 5 item -->
-               <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                <div class=" d-flex mt-2">
-                    <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                    <h5 style="color: #B88A44;">Yoon</h5>
-                </div>
-                <p class="slide mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-            </div>
-
-                <!-- 6 item -->
-                <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="slide mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
-
-                 <!-- 1 item -->
-                <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon Ei phyu</h5>
-                    </div>
-                    <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
-                <!-- 2 item -->
-                <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
-
-                 <!-- 3 item -->
-                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
-
-                 <!-- 4 item -->
-                 <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="slide mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
-
-                <!-- 5 item -->
-                <div class="slide rounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
-
-                <!-- 6 item -->
-                <div class="sliderounded shadow-sm" style="height: 100px;width: 250px;border:2px solid #419489;">
-                    <div class=" d-flex mt-2">
-                        <img src="../assets/images/client_1541511.png" alt=""  class="rounded-circle img-thumbnail me-3 ms-2" style="width: 35px; height: 35px;">
-                        <h5 style="color: #B88A44;">Yoon</h5>
-                    </div>
-                    <p class="mb-2 mx-2 p-0 text-just ">I've so impressed all my friends with new dishs.</p>
-                </div>
+                <?php endforeach;?>
+                 
 
             </div>
         </div>
@@ -740,7 +667,7 @@ $random=$CRUD->random_en();
         <div class="row">
             <div class="col-lg-6 mb-5">
                 <div class="d-flex align-items-center mb-2">
-                        <img src="logo.png" alt="Logo" style="height: 30px; margin-right: 10px;">
+                <img src="../src/assets/logo.png" alt="Logo" style="height: 40px; margin-right: 10px; width:40px;margin-top:0;">
                         <h2 style="font-size: 50px;color: #B88A44;">Heritaste</h2>
                 </div>
                 <div class="w-75">

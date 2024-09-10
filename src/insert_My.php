@@ -8,6 +8,7 @@ if($_SERVER['REQUEST_METHOD']==="POST"){
     $name=$_POST['name'];
     $Cid=$_POST['Cid']; 
     $type=$_POST['type'];
+
     $instructions=$_POST['instructions'];
     $ingredient=$_POST['ingredient'];
     $pre_time=(int)$_POST['pre_time'];
@@ -30,12 +31,12 @@ if($_SERVER['REQUEST_METHOD']==="POST"){
 
    if($type === 'meal '){
     $insert->insert_meal($ename,$Cid,$EN_id,$MY_id);
-    header("Location:choice.php?msg=Insert New Meal Successful.");
+    header("Location:admin.php?msg=Insert New Meal Successful.");
     exit();
    }
    elseif($type ==='dessert '){
     $insert->insert_dessert($ename,$Cid,$EN_id,$MY_id);
-    header("Location:choice.php?msg=Insert New Dessert Successful.");
+    header("Location:admin.php?msg=Insert New Dessert Successful.");
     exit();
    }
    else{
